@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.ActivitytemporaryMapper" >
+  <resultMap id="BaseResultMap" type="com.bklkj.pojo.Activitytemporary" >
+    <id column="rownum" property="rownum" jdbcType="INTEGER" />
+    <result column="businessname" property="businessname" jdbcType="VARCHAR" />
+    <result column="businessactivitymoney" property="businessactivitymoney" jdbcType="DOUBLE" />
+    <result column="logo" property="logo" jdbcType="VARCHAR" />
+    <result column="activitytype" property="activitytype" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    rownum, businessname, businessactivitymoney, logo, activitytype
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bklkj.pojo.ActivitytemporaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from activitytemporary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activitytemporary
+    where rownum = #{rownum,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activitytemporary
+    where rownum = #{rownum,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bklkj.pojo.ActivitytemporaryExample" >
+    delete from activitytemporary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bklkj.pojo.Activitytemporary" >
+    insert into activitytemporary (rownum, businessname, businessactivitymoney, 
+      logo, activitytype)
+    values (#{rownum,jdbcType=INTEGER}, #{businessname,jdbcType=VARCHAR}, #{businessactivitymoney,jdbcType=DOUBLE}, 
+      #{logo,jdbcType=VARCHAR}, #{activitytype,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bklkj.pojo.Activitytemporary" >
+    insert into activitytemporary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rownum != null" >
+        rownum,
+      </if>
+      <if test="businessname != null" >
+        businessname,
+      </if>
+      <if test="businessactivitymoney != null" >
+        businessactivitymoney,
+      </if>
+      <if test="logo != null" >
+        logo,
+      </if>
+      <if test="activitytype != null" >
+        activitytype,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rownum != null" >
+        #{rownum,jdbcType=INTEGER},
+      </if>
+      <if test="businessname != null" >
+        #{businessname,jdbcType=VARCHAR},
+      </if>
+      <if test="businessactivitymoney != null" >
+        #{businessactivitymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="logo != null" >
+        #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="activitytype != null" >
+        #{activitytype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bklkj.pojo.ActivitytemporaryExample" resultType="java.lang.Integer" >
+    select count(*) from activitytemporary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update activitytemporary
+    <set >
+      <if test="record.rownum != null" >
+        rownum = #{record.rownum,jdbcType=INTEGER},
+      </if>
+      <if test="record.businessname != null" >
+        businessname = #{record.businessname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessactivitymoney != null" >
+        businessactivitymoney = #{record.businessactivitymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.logo != null" >
+        logo = #{record.logo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activitytype != null" >
+        activitytype = #{record.activitytype,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update activitytemporary
+    set rownum = #{record.rownum,jdbcType=INTEGER},
+      businessname = #{record.businessname,jdbcType=VARCHAR},
+      businessactivitymoney = #{record.businessactivitymoney,jdbcType=DOUBLE},
+      logo = #{record.logo,jdbcType=VARCHAR},
+      activitytype = #{record.activitytype,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Activitytemporary" >
+    update activitytemporary
+    <set >
+      <if test="businessname != null" >
+        businessname = #{businessname,jdbcType=VARCHAR},
+      </if>
+      <if test="businessactivitymoney != null" >
+        businessactivitymoney = #{businessactivitymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="logo != null" >
+        logo = #{logo,jdbcType=VARCHAR},
+      </if>
+      <if test="activitytype != null" >
+        activitytype = #{activitytype,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rownum = #{rownum,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.Activitytemporary" >
+    update activitytemporary
+    set businessname = #{businessname,jdbcType=VARCHAR},
+      businessactivitymoney = #{businessactivitymoney,jdbcType=DOUBLE},
+      logo = #{logo,jdbcType=VARCHAR},
+      activitytype = #{activitytype,jdbcType=INTEGER}
+    where rownum = #{rownum,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectall" resultMap="BaseResultMap" >
+    select * from activitytemporary
+  </select>
+</mapper>

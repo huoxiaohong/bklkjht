@@ -1,0 +1,539 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bklkj.dao.AlipayMapper">
+	<resultMap id="BaseResultMap" type="com.bklkj.pojo.Alipay">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="service" jdbcType="VARCHAR" property="service" />
+		<result column="partner" jdbcType="VARCHAR" property="partner" />
+		<result column="_input_charset" jdbcType="VARCHAR" property="inputCharset" />
+		<result column="sign_type" jdbcType="VARCHAR" property="signType" />
+		<result column="sign" jdbcType="VARCHAR" property="sign" />
+		<result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo" />
+		<result column="subject" jdbcType="VARCHAR" property="subject" />
+		<result column="total_fee" jdbcType="VARCHAR" property="totalFee" />
+		<result column="seller_id" jdbcType="VARCHAR" property="sellerId" />
+		<result column="payment_type" jdbcType="VARCHAR" property="paymentType" />
+		<result column="show_url" jdbcType="VARCHAR" property="showUrl" />
+		<result column="body" jdbcType="VARCHAR" property="body" />
+		<result column="is_success" jdbcType="VARCHAR" property="isSuccess" />
+		<result column="notify_time" jdbcType="TIMESTAMP" property="notifyTime" />
+		<result column="notify_type" jdbcType="VARCHAR" property="notifyType" />
+		<result column="notify_id" jdbcType="VARCHAR" property="notifyId" />
+		<result column="TRADE_FINISHED" jdbcType="BIT" property="tradeFinished" />
+		<result column="TRADE_SUCCESS" jdbcType="BIT" property="tradeSuccess" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value" item="listItem"
+										open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, service, partner, _input_charset, sign_type, sign, out_trade_no,
+		subject, total_fee,
+		seller_id, payment_type, show_url, body, is_success, notify_time, notify_type,
+		notify_id,
+		TRADE_FINISHED, TRADE_SUCCESS
+	</sql>
+	<select id="selectByExample" parameterType="com.bklkj.pojo.AlipayExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from alipay
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from alipay
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from alipay
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.bklkj.pojo.AlipayExample">
+		delete from alipay
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.bklkj.pojo.Alipay">
+		insert into alipay (id, service, partner,
+		_input_charset, sign_type, sign,
+		out_trade_no, subject, total_fee,
+		seller_id, payment_type, show_url,
+		body, is_success, notify_time,
+		notify_type, notify_id, TRADE_FINISHED,
+		TRADE_SUCCESS)
+		values (#{id,jdbcType=INTEGER}, #{service,jdbcType=VARCHAR},
+		#{partner,jdbcType=VARCHAR},
+		#{inputCharset,jdbcType=VARCHAR}, #{signType,jdbcType=VARCHAR}, #{sign,jdbcType=VARCHAR},
+		#{outTradeNo,jdbcType=VARCHAR}, #{subject,jdbcType=VARCHAR},
+		#{totalFee,jdbcType=VARCHAR},
+		#{sellerId,jdbcType=VARCHAR}, #{paymentType,jdbcType=VARCHAR}, #{showUrl,jdbcType=VARCHAR},
+		#{body,jdbcType=VARCHAR}, #{isSuccess,jdbcType=VARCHAR},
+		#{notifyTime,jdbcType=TIMESTAMP},
+		#{notifyType,jdbcType=VARCHAR}, #{notifyId,jdbcType=VARCHAR}, #{tradeFinished,jdbcType=BIT},
+		#{tradeSuccess,jdbcType=BIT})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bklkj.pojo.Alipay">
+		insert into alipay
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="service != null">
+				service,
+			</if>
+			<if test="partner != null">
+				partner,
+			</if>
+			<if test="inputCharset != null">
+				_input_charset,
+			</if>
+			<if test="signType != null">
+				sign_type,
+			</if>
+			<if test="sign != null">
+				sign,
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no,
+			</if>
+			<if test="subject != null">
+				subject,
+			</if>
+			<if test="totalFee != null">
+				total_fee,
+			</if>
+			<if test="sellerId != null">
+				seller_id,
+			</if>
+			<if test="paymentType != null">
+				payment_type,
+			</if>
+			<if test="showUrl != null">
+				show_url,
+			</if>
+			<if test="body != null">
+				body,
+			</if>
+			<if test="isSuccess != null">
+				is_success,
+			</if>
+			<if test="notifyTime != null">
+				notify_time,
+			</if>
+			<if test="notifyType != null">
+				notify_type,
+			</if>
+			<if test="notifyId != null">
+				notify_id,
+			</if>
+			<if test="tradeFinished != null">
+				TRADE_FINISHED,
+			</if>
+			<if test="tradeSuccess != null">
+				TRADE_SUCCESS,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="service != null">
+				#{service,jdbcType=VARCHAR},
+			</if>
+			<if test="partner != null">
+				#{partner,jdbcType=VARCHAR},
+			</if>
+			<if test="inputCharset != null">
+				#{inputCharset,jdbcType=VARCHAR},
+			</if>
+			<if test="signType != null">
+				#{signType,jdbcType=VARCHAR},
+			</if>
+			<if test="sign != null">
+				#{sign,jdbcType=VARCHAR},
+			</if>
+			<if test="outTradeNo != null">
+				#{outTradeNo,jdbcType=VARCHAR},
+			</if>
+			<if test="subject != null">
+				#{subject,jdbcType=VARCHAR},
+			</if>
+			<if test="totalFee != null">
+				#{totalFee,jdbcType=VARCHAR},
+			</if>
+			<if test="sellerId != null">
+				#{sellerId,jdbcType=VARCHAR},
+			</if>
+			<if test="paymentType != null">
+				#{paymentType,jdbcType=VARCHAR},
+			</if>
+			<if test="showUrl != null">
+				#{showUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="body != null">
+				#{body,jdbcType=VARCHAR},
+			</if>
+			<if test="isSuccess != null">
+				#{isSuccess,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyTime != null">
+				#{notifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="notifyType != null">
+				#{notifyType,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyId != null">
+				#{notifyId,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeFinished != null">
+				#{tradeFinished,jdbcType=BIT},
+			</if>
+			<if test="tradeSuccess != null">
+				#{tradeSuccess,jdbcType=BIT},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.bklkj.pojo.AlipayExample"
+		resultType="java.lang.Integer">
+		select count(*) from alipay
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update alipay
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.service != null">
+				service = #{record.service,jdbcType=VARCHAR},
+			</if>
+			<if test="record.partner != null">
+				partner = #{record.partner,jdbcType=VARCHAR},
+			</if>
+			<if test="record.inputCharset != null">
+				_input_charset = #{record.inputCharset,jdbcType=VARCHAR},
+			</if>
+			<if test="record.signType != null">
+				sign_type = #{record.signType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sign != null">
+				sign = #{record.sign,jdbcType=VARCHAR},
+			</if>
+			<if test="record.outTradeNo != null">
+				out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.subject != null">
+				subject = #{record.subject,jdbcType=VARCHAR},
+			</if>
+			<if test="record.totalFee != null">
+				total_fee = #{record.totalFee,jdbcType=VARCHAR},
+			</if>
+			<if test="record.sellerId != null">
+				seller_id = #{record.sellerId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.paymentType != null">
+				payment_type = #{record.paymentType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.showUrl != null">
+				show_url = #{record.showUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="record.body != null">
+				body = #{record.body,jdbcType=VARCHAR},
+			</if>
+			<if test="record.isSuccess != null">
+				is_success = #{record.isSuccess,jdbcType=VARCHAR},
+			</if>
+			<if test="record.notifyTime != null">
+				notify_time = #{record.notifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.notifyType != null">
+				notify_type = #{record.notifyType,jdbcType=VARCHAR},
+			</if>
+			<if test="record.notifyId != null">
+				notify_id = #{record.notifyId,jdbcType=VARCHAR},
+			</if>
+			<if test="record.tradeFinished != null">
+				TRADE_FINISHED = #{record.tradeFinished,jdbcType=BIT},
+			</if>
+			<if test="record.tradeSuccess != null">
+				TRADE_SUCCESS = #{record.tradeSuccess,jdbcType=BIT},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update alipay
+		set id = #{record.id,jdbcType=INTEGER},
+		service = #{record.service,jdbcType=VARCHAR},
+		partner = #{record.partner,jdbcType=VARCHAR},
+		_input_charset = #{record.inputCharset,jdbcType=VARCHAR},
+		sign_type = #{record.signType,jdbcType=VARCHAR},
+		sign = #{record.sign,jdbcType=VARCHAR},
+		out_trade_no = #{record.outTradeNo,jdbcType=VARCHAR},
+		subject = #{record.subject,jdbcType=VARCHAR},
+		total_fee = #{record.totalFee,jdbcType=VARCHAR},
+		seller_id = #{record.sellerId,jdbcType=VARCHAR},
+		payment_type = #{record.paymentType,jdbcType=VARCHAR},
+		show_url = #{record.showUrl,jdbcType=VARCHAR},
+		body = #{record.body,jdbcType=VARCHAR},
+		is_success = #{record.isSuccess,jdbcType=VARCHAR},
+		notify_time = #{record.notifyTime,jdbcType=TIMESTAMP},
+		notify_type = #{record.notifyType,jdbcType=VARCHAR},
+		notify_id = #{record.notifyId,jdbcType=VARCHAR},
+		TRADE_FINISHED = #{record.tradeFinished,jdbcType=BIT},
+		TRADE_SUCCESS = #{record.tradeSuccess,jdbcType=BIT}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Alipay">
+		update alipay
+		<set>
+			<if test="service != null">
+				service = #{service,jdbcType=VARCHAR},
+			</if>
+			<if test="partner != null">
+				partner = #{partner,jdbcType=VARCHAR},
+			</if>
+			<if test="inputCharset != null">
+				_input_charset = #{inputCharset,jdbcType=VARCHAR},
+			</if>
+			<if test="signType != null">
+				sign_type = #{signType,jdbcType=VARCHAR},
+			</if>
+			<if test="sign != null">
+				sign = #{sign,jdbcType=VARCHAR},
+			</if>
+			<if test="outTradeNo != null">
+				out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+			</if>
+			<if test="subject != null">
+				subject = #{subject,jdbcType=VARCHAR},
+			</if>
+			<if test="totalFee != null">
+				total_fee = #{totalFee,jdbcType=VARCHAR},
+			</if>
+			<if test="sellerId != null">
+				seller_id = #{sellerId,jdbcType=VARCHAR},
+			</if>
+			<if test="paymentType != null">
+				payment_type = #{paymentType,jdbcType=VARCHAR},
+			</if>
+			<if test="showUrl != null">
+				show_url = #{showUrl,jdbcType=VARCHAR},
+			</if>
+			<if test="body != null">
+				body = #{body,jdbcType=VARCHAR},
+			</if>
+			<if test="isSuccess != null">
+				is_success = #{isSuccess,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyTime != null">
+				notify_time = #{notifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="notifyType != null">
+				notify_type = #{notifyType,jdbcType=VARCHAR},
+			</if>
+			<if test="notifyId != null">
+				notify_id = #{notifyId,jdbcType=VARCHAR},
+			</if>
+			<if test="tradeFinished != null">
+				TRADE_FINISHED = #{tradeFinished,jdbcType=BIT},
+			</if>
+			<if test="tradeSuccess != null">
+				TRADE_SUCCESS = #{tradeSuccess,jdbcType=BIT},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.Alipay">
+		update alipay
+		set service = #{service,jdbcType=VARCHAR},
+		partner = #{partner,jdbcType=VARCHAR},
+		_input_charset = #{inputCharset,jdbcType=VARCHAR},
+		sign_type = #{signType,jdbcType=VARCHAR},
+		sign = #{sign,jdbcType=VARCHAR},
+		out_trade_no = #{outTradeNo,jdbcType=VARCHAR},
+		subject = #{subject,jdbcType=VARCHAR},
+		total_fee = #{totalFee,jdbcType=VARCHAR},
+		seller_id = #{sellerId,jdbcType=VARCHAR},
+		payment_type = #{paymentType,jdbcType=VARCHAR},
+		show_url = #{showUrl,jdbcType=VARCHAR},
+		body = #{body,jdbcType=VARCHAR},
+		is_success = #{isSuccess,jdbcType=VARCHAR},
+		notify_time = #{notifyTime,jdbcType=TIMESTAMP},
+		notify_type = #{notifyType,jdbcType=VARCHAR},
+		notify_id = #{notifyId,jdbcType=VARCHAR},
+		TRADE_FINISHED = #{tradeFinished,jdbcType=BIT},
+		TRADE_SUCCESS = #{tradeSuccess,jdbcType=BIT}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	
+	
+	<update id="updateuser" parameterType="map">
+	update user set alipayid=#{payid,jdbcType=VARCHAR},alipaystate=1 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateusermoney" parameterType="map">
+	update user set userbalance= userbalance - #{amount,jdbcType=VARCHAR} where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="selectalipaystate" resultType="java.lang.String">
+		select
+		alipaystate
+		from user
+		where userid = #{userid,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectalipayid" resultType="java.lang.String">
+		select
+		alipayid
+		from user
+		where userid = #{userid,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<insert id="insertwithdraw" parameterType="com.bklkj.pojo.Withdrawals">
+		insert into withdrawals (orderno,userid,withdrawalsmoney) values(
+		#{orderNo,jdbcType=VARCHAR},
+		#{userid,jdbcType=VARCHAR},
+		#{amount,jdbcType=DOUBLE}
+		)
+	</insert>
+	
+	
+	<select id="selectusergold" resultType="java.lang.Integer">
+		select usergold from user where userid=#{userid,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<select id="selectordermoney" resultType="java.lang.String">
+		select commodityprice from commodity where commodityid = #{commodityid,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectsbuject" resultType="java.lang.String">
+		select commoditydescribe from commodity where commodityid = #{commodityid,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<update id="updategold" parameterType="map">
+	update user set usergold = usergold - #{amount,jdbcType=VARCHAR}*1000 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	
+	<update id="updateuserintegral10" parameterType="map">
+	update user set userintegral = userintegral+10 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateuserintegral60" parameterType="map">
+	update user set userintegral = userintegral+60 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateuserintegral198" parameterType="map">
+	update user set userintegral = userintegral+198 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateuserintegral388" parameterType="map">
+	update user set userintegral = userintegral+388 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateuserintegral998" parameterType="map">
+	update user set userintegral = userintegral+998 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="updateuserintegral1998" parameterType="map">
+	update user set userintegral = userintegral+1988 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	
+	
+	
+	<update id="update10" parameterType="map">
+	update user set userintegral = userintegral+10 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="update60" parameterType="map">
+	update user set userintegral = userintegral+60 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="update198" parameterType="map">
+	update user set userintegral = userintegral+198 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="update388" parameterType="map">
+	update user set userintegral = userintegral+388 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="update998" parameterType="map">
+	update user set userintegral = userintegral+998 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="update1998" parameterType="map">
+	update user set userintegral = userintegral+1988 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	
+	
+</mapper>

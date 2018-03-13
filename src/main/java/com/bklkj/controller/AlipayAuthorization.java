@@ -1,0 +1,26 @@
+package com.bklkj.controller;
+
+import com.alipay.api.AlipayApiException;
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
+import com.alipay.api.request.AlipaySystemOauthTokenRequest;
+import com.alipay.api.response.AlipaySystemOauthTokenResponse;
+
+
+//支付宝授权登录
+public class AlipayAuthorization {
+	public static void main(String[] args) {
+		AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipaydev.com/gateway.do", "2017111009837941", "MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCJ7gjnf7oqUv8V6WrL0rbdtiNfk8TVzbw86TJTxf9rzHU3aKuOdlFUUwuoG5UWGVwCJfPNL4RZ9JP7e0GzalAlJrNL+4O2i+mVD5/rLHQheFV+iU6CnJ1U/CXV/FF/cgpa74yPLoV0c0TQ6zwJJXcH4+mGD9CKYhCtBPjIGWWDuqUPIjYv65BvUBExyeT0AJA9HlUZksDwsKRXxdAMKAQAyR1GvPvSZ82PpzlPi25sPlz3S93doy293UZGtrHbM1KTnRcwFjlniiz9xNqbro2Rq/XxX1/DsQ5lv83tHnAyC0IU7hN/pk79+PUYo9vHxnt/PRvAGIsPDVqReJjCmct3AgMBAAECggEAaAW/bWgk7NqfStU5F/MYuukskF6Pane46W8t54RB9/jAxkMIb27IM4JWHjh/HaWOgIhC8JJPjNAp8tWoXTlmrD4dpsZPNZMbXLHl96UVCFEKmV3QeizHc1qe5l1e0XEeYiqbpTh+qa5tTeq64mMA/FBkxBiVPGhtDy/auH5+0vL/d2Zjgcbhv3Tq+g7oHy2L6oS01EgPh769+Yh/sA9IRIR/7L5cgppcX2LEi5yZHXJh7LX4uTedd6FmUP4LgaFf02CdWBASgFX+8RehbdwRMjPeZh9bkRoRczz1sAY56BkU/GyBsnYcmtXJc6l2knzbvULQW9RivU2hddgSJfVpgQKBgQD6PzJUVtYM0D0pdcMeGjpgn/DiFRPsl+W8psx8UqUSAgeGYbct3CpizzcqEY1/E5HCQmTEKJX0RAyAVMSNsgepWms356cGVETM4Pa2h50G/Nw5HXLHy0wOFXOil1bEegsNgN4gMSaMo0g5UHjOIUJMg38/o/am4x0R2li/64BalwKBgQCNGc6oDgF421Fgq3k4n0y+IbTSsqJ3E31xRu1d1QJo/TVw+XrlMSLfVRJs9RR2OsqWF11kUP47SuU+IztTDq2gegIfy3emQ6z36BCketeH79m7GRI9U8200kodCOAzeIF/89KipaZPQFsgPDbkcWNtbSNL28y0+l6Hs0X3yDySIQKBgBTl7C0Q52VAiqsIs5ey9wcUtEgdHIHYmY3snA0R1ckwNDKrvGFvDncb+O5hcuCW4MhJRSMAhK1WdXjOG2/92xfwfh24EcG8jdZSPyg1IQ7xVO7MH8bBmoNelT6RxuQ3kO66wVIM6Lw78o8ewkfsjR3YqWrGJZYAR3AzPNAiOaDXAoGAJoYGQyHXywxuEmuepBPyGvMO8HuvGb2rgRLxWa3/g3Smc5rZr9uTftA2QKNFG+Z/Sy1D5VCrqLqRDj8GQm3+f5LwI4gkubM+dUzZxl53m/ijRI7ayP2paxYDABxdQhBDoxCJ0LhTSM30Uz+9aO+ASu8CNQLkyACXcItErhrwVqECgYAjUJO3k4+VIiMtXj+JdufAE0EtpwUKMrVyi/ayz11YzuSxVD8SnTp9/THEaGeJwLnJoChB06aJLGbx4hKH2dTPVeXr9SsMEoLEcbHlbqJUwysbnUehiKEu8INEMhxTBhqbIFN5Yqwg/ILUkEASfQYk0zuI6NMTTvj31URkYuiW/w==", "json", "utf-8", "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAie4I53+6KlL/Felqy9K23bYjX5PE1c28POkyU8X/a8x1N2irjnZRVFMLqBuVFhlcAiXzzS+EWfST+3tBs2pQJSazS/uDtovplQ+f6yx0IXhVfolOgpydVPwl1fxRf3IKWu+Mjy6FdHNE0Os8CSV3B+Pphg/QimIQrQT4yBllg7qlDyI2L+uQb1ARMcnk9ACQPR5VGZLA8LCkV8XQDCgEAMkdRrz70mfNj6c5T4tubD5c90vd3aMtvd1GRrax2zNSk50XMBY5Z4os/cTam66Nkav18V9fw7EOZb/N7R5wMgtCFO4Tf6ZO/fj1GKPbx8Z7fz0bwBiLDw1akXiYwpnLdwIDAQAB", "RSA2"); 
+		AlipaySystemOauthTokenRequest request = new AlipaySystemOauthTokenRequest();
+		request.setCode("4b203fe6c11548bcabd8da5bb087a83b");
+		request.setGrantType("authorization_code");
+		try {
+		    AlipaySystemOauthTokenResponse oauthTokenResponse = alipayClient.execute(request);
+		    System.out.println(oauthTokenResponse.getAccessToken());
+		} catch (AlipayApiException e) {
+		    //处理异常
+		    e.printStackTrace();
+		}
+		
+	}
+}

@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.CommodityMapper" >
+  <resultMap id="BaseResultMap" type="com.bklkj.pojo.Commodity" >
+    <id column="commodityid" property="commodityid" jdbcType="INTEGER" />
+    <result column="commodityname" property="commodityname" jdbcType="VARCHAR" />
+    <result column="commodityprice" property="commodityprice" jdbcType="DOUBLE" />
+    <result column="commoditydescribe" property="commoditydescribe" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    commodityid, commodityname, commodityprice, commoditydescribe
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.bklkj.pojo.CommodityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from commodity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from commodity
+    where commodityid = #{commodityid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from commodity
+    where commodityid = #{commodityid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.bklkj.pojo.CommodityExample" >
+    delete from commodity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.bklkj.pojo.Commodity" >
+    insert into commodity (commodityid, commodityname, commodityprice, 
+      commoditydescribe)
+    values (#{commodityid,jdbcType=INTEGER}, #{commodityname,jdbcType=VARCHAR}, #{commodityprice,jdbcType=DOUBLE}, 
+      #{commoditydescribe,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bklkj.pojo.Commodity" >
+    insert into commodity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="commodityid != null" >
+        commodityid,
+      </if>
+      <if test="commodityname != null" >
+        commodityname,
+      </if>
+      <if test="commodityprice != null" >
+        commodityprice,
+      </if>
+      <if test="commoditydescribe != null" >
+        commoditydescribe,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="commodityid != null" >
+        #{commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="commodityname != null" >
+        #{commodityname,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityprice != null" >
+        #{commodityprice,jdbcType=DOUBLE},
+      </if>
+      <if test="commoditydescribe != null" >
+        #{commoditydescribe,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.bklkj.pojo.CommodityExample" resultType="java.lang.Integer" >
+    select count(*) from commodity
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update commodity
+    <set >
+      <if test="record.commodityid != null" >
+        commodityid = #{record.commodityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.commodityname != null" >
+        commodityname = #{record.commodityname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commodityprice != null" >
+        commodityprice = #{record.commodityprice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.commoditydescribe != null" >
+        commoditydescribe = #{record.commoditydescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update commodity
+    set commodityid = #{record.commodityid,jdbcType=INTEGER},
+      commodityname = #{record.commodityname,jdbcType=VARCHAR},
+      commodityprice = #{record.commodityprice,jdbcType=DOUBLE},
+      commoditydescribe = #{record.commoditydescribe,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Commodity" >
+    update commodity
+    <set >
+      <if test="commodityname != null" >
+        commodityname = #{commodityname,jdbcType=VARCHAR},
+      </if>
+      <if test="commodityprice != null" >
+        commodityprice = #{commodityprice,jdbcType=DOUBLE},
+      </if>
+      <if test="commoditydescribe != null" >
+        commoditydescribe = #{commoditydescribe,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where commodityid = #{commodityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.Commodity" >
+    update commodity
+    set commodityname = #{commodityname,jdbcType=VARCHAR},
+      commodityprice = #{commodityprice,jdbcType=DOUBLE},
+      commoditydescribe = #{commoditydescribe,jdbcType=VARCHAR}
+    where commodityid = #{commodityid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectordernum" resultType="java.lang.String" >
+   SELECT commodityid from commodity
+  </select>
+  <select id="selectordername" resultType="java.lang.String" >
+   SELECT commodityname from commodity
+  </select>
+  <select id="selectorderprice" resultType="java.lang.String" >
+   SELECT commodityprice from commodity
+  </select>
+  <select id="selectorderdescribe" resultType="java.lang.String" >
+   SELECT commoditydescribe from commodity
+  </select>
+</mapper>

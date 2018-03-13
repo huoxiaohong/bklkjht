@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.BusinessMapper">
+	<resultMap id="BaseResultMap" type="com.bklkj.pojo.Business">
+		<id column="Id" property="id" jdbcType="INTEGER" />
+		<result column="BusinessId" property="businessid" jdbcType="INTEGER" />
+		<result column="BusinessName" property="businessname" jdbcType="VARCHAR" />
+		<result column="BusinessPhone" property="businessphone"
+			jdbcType="VARCHAR" />
+		<result column="BusinessAddress" property="businessaddress"
+			jdbcType="VARCHAR" />
+		<result column="Logo" property="logo" jdbcType="VARCHAR" />
+		<result column="BusinessIntroduce" property="businessintroduce"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		Id, BusinessId, BusinessName, BusinessPhone,
+		BusinessAddress, Logo,
+		BusinessIntroduce
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.BusinessExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from business
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from business
+		where Id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		business
+		where Id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.bklkj.pojo.BusinessExample">
+		delete from business
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<!-- 添加商户 -->
+	<insert id="insertBusiness" parameterType="com.bklkj.pojo.Business">
+		insert into business
+		(BusinessId, BusinessName,
+		BusinessPhone, BusinessAddress, Logo,
+		BusinessIntroduce)
+		values (#{businessId,jdbcType=INTEGER},
+		#{businessName,jdbcType=VARCHAR},
+		#{businessPhone,jdbcType=VARCHAR},
+		#{businessAddress,jdbcType=VARCHAR}, #{logo,jdbcType=VARCHAR},
+		#{businessIntroduce,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bklkj.pojo.Business">
+		insert into business
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				Id,
+			</if>
+			<if test="businessid != null">
+				BusinessId,
+			</if>
+			<if test="businessname != null">
+				BusinessName,
+			</if>
+			<if test="businessphone != null">
+				BusinessPhone,
+			</if>
+			<if test="businessaddress != null">
+				BusinessAddress,
+			</if>
+			<if test="logo != null">
+				Logo,
+			</if>
+			<if test="businessintroduce != null">
+				BusinessIntroduce,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="businessid != null">
+				#{businessid,jdbcType=INTEGER},
+			</if>
+			<if test="businessname != null">
+				#{businessname,jdbcType=VARCHAR},
+			</if>
+			<if test="businessphone != null">
+				#{businessphone,jdbcType=VARCHAR},
+			</if>
+			<if test="businessaddress != null">
+				#{businessaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="logo != null">
+				#{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="businessintroduce != null">
+				#{businessintroduce,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.bklkj.pojo.BusinessExample"
+		resultType="java.lang.Integer">
+		select count(*) from business
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update business
+		<set>
+			<if test="record.id != null">
+				Id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.businessid != null">
+				BusinessId = #{record.businessid,jdbcType=INTEGER},
+			</if>
+			<if test="record.businessname != null">
+				BusinessName = #{record.businessname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.businessphone != null">
+				BusinessPhone = #{record.businessphone,jdbcType=VARCHAR},
+			</if>
+			<if test="record.businessaddress != null">
+				BusinessAddress =
+				#{record.businessaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="record.logo != null">
+				Logo = #{record.logo,jdbcType=VARCHAR},
+			</if>
+			<if test="record.businessintroduce != null">
+				BusinessIntroduce =
+				#{record.businessintroduce,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update business
+		set Id = #{record.id,jdbcType=INTEGER},
+		BusinessId =
+		#{record.businessid,jdbcType=INTEGER},
+		BusinessName =
+		#{record.businessname,jdbcType=VARCHAR},
+		BusinessPhone =
+		#{record.businessphone,jdbcType=VARCHAR},
+		BusinessAddress =
+		#{record.businessaddress,jdbcType=VARCHAR},
+		Logo =
+		#{record.logo,jdbcType=VARCHAR},
+		BusinessIntroduce =
+		#{record.businessintroduce,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Business">
+		update business
+		<set>
+			<if test="businessid != null">
+				BusinessId = #{businessid,jdbcType=INTEGER},
+			</if>
+			<if test="businessname != null">
+				BusinessName = #{businessname,jdbcType=VARCHAR},
+			</if>
+			<if test="businessphone != null">
+				BusinessPhone = #{businessphone,jdbcType=VARCHAR},
+			</if>
+			<if test="businessaddress != null">
+				BusinessAddress = #{businessaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="logo != null">
+				Logo = #{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="businessintroduce != null">
+				BusinessIntroduce =
+				#{businessintroduce,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateBusinessById" parameterType="com.bklkj.pojo.Business">
+		update business
+		set BusinessId = #{businessId,jdbcType=INTEGER},
+		BusinessName =
+		#{businessName,jdbcType=VARCHAR},
+		BusinessPhone =
+		#{businessPhone,jdbcType=VARCHAR},
+		BusinessAddress =
+		#{businessAddress,jdbcType=VARCHAR},
+		Logo = #{logo,jdbcType=VARCHAR},
+		BusinessIntroduce = #{businessIntroduce,jdbcType=VARCHAR}
+		where Id =
+		#{Id,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByAll" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from business limit 0,20
+	</select>
+	<select id="selectByName" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from business where businessname =
+		#{businessName,jdbcType=VARCHAR}
+	</select>
+
+	<delete id="deleteById" parameterType="com.bklkj.pojo.Business">
+		delete from business where
+		businessId = #{businessId,jdbcType=INTEGER}
+
+	</delete>
+
+
+	<select id="selectbusinesscount" resultType="java.lang.Integer">
+		select count(*) from
+		business
+	</select>
+
+
+	<select id="selectBusinessname" resultType="java.lang.String">
+		select businessname
+		from (select businessname,redbagmoney from business,redbag where
+		redbag.BusinessId=business.BusinessId)b
+	</select>
+
+	<select id="selectforbusinessname" resultType="java.lang.Integer">
+		select count(*)
+		from business
+	</select>
+
+
+	<insert id="insertinto" parameterType="com.bklkj.pojo.Business">
+		insert into business
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="businessname != null">
+				BusinessName,
+			</if>
+			<if test="businessphone != null">
+				BusinessPhone,
+			</if>
+			<if test="businessaddress != null">
+				BusinessAddress,
+			</if>
+			<if test="businessintroduce != null">
+				BusinessIntroduce,
+			</if>
+			<if test="businesswebsite != null">
+				businessWebsite,
+			</if>
+			<if test="businessemail != null">
+				businessemail,
+			</if>
+			<if test="businesspicture1 != null">
+				businesspicture1,
+			</if>
+			<if test="businesspicture2 != null">
+				businesspicture2,
+			</if>
+			<if test="businesspicture3 != null">
+				businesspicture3,
+			</if>
+			<if test="businesspicture4 != null">
+				businesspicture4,
+			</if>
+			<if test="businesspicture5 != null">
+				businesspicture5,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+
+			<if test="businessname != null">
+				#{businessname,jdbcType=VARCHAR},
+			</if>
+			<if test="businessphone != null">
+				#{businessphone,jdbcType=VARCHAR},
+			</if>
+			<if test="businessaddress != null">
+				#{businessaddress,jdbcType=VARCHAR},
+			</if>
+			<if test="logo != null">
+				#{logo,jdbcType=VARCHAR},
+			</if>
+			<if test="businessintroduce != null">
+				#{businessintroduce,jdbcType=VARCHAR},
+			</if>
+			<if test="businesswebsite != null">
+				#{businesswebsite,jdbcType=VARCHAR},
+			</if>
+			<if test="businessemail != null">
+				#{businessemail,jdbcType=VARCHAR},
+			</if>
+			<if test="businesspicture1 != null">
+				#{businesspicture1,jdbcType=VARCHAR},
+			</if>
+			<if test="businesspicture2 != null">
+				#{businesspicture2,jdbcType=VARCHAR},
+			</if>
+			<if test="businesspicture3 != null">
+				#{businesspicture3,jdbcType=VARCHAR},
+			</if>
+			<if test="businesspicture4 != null">
+				#{businesspicture4,jdbcType=VARCHAR},
+			</if>
+			<if test="businesspicture5 != null">
+				#{businesspicture5,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+
+
+</mapper>

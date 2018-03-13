@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.ProblemMapper">
+	<resultMap id="BaseResultMap" type="com.bklkj.pojo.Problem">
+		
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <!-- <result column="picture" property="picture" jdbcType="VARCHAR" /> -->
+    <result column="rightanswer" property="rightanswer" jdbcType="VARCHAR" />
+   <!--  <result column="rownum" property="rownum" jdbcType="INTEGER" />  -->
+    <result column="answer1" property="answer1" jdbcType="VARCHAR" />
+    <result column="answer2" property="answer2" jdbcType="VARCHAR" />
+    <result column="answer3" property="answer3" jdbcType="VARCHAR" />
+		
+		
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, type, content, picture, answer
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.ProblemExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from problem
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from problem
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from problem
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.bklkj.pojo.ProblemExample">
+		delete from problem
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.bklkj.pojo.Problem">
+		insert into problem (id, type, content,
+		picture, answer)
+		values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER},
+		#{content,jdbcType=VARCHAR},
+		#{picture,jdbcType=VARCHAR}, #{answer,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bklkj.pojo.Problem">
+		insert into problem
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="type != null">
+				type,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="picture != null">
+				picture,
+			</if>
+			<if test="answer != null">
+				answer,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="type != null">
+				#{type,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="picture != null">
+				#{picture,jdbcType=VARCHAR},
+			</if>
+			<if test="answer != null">
+				#{answer,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.bklkj.pojo.ProblemExample"
+		resultType="java.lang.Integer">
+		select count(*) from problem
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update problem
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.type != null">
+				type = #{record.type,jdbcType=INTEGER},
+			</if>
+			<if test="record.content != null">
+				content = #{record.content,jdbcType=VARCHAR},
+			</if>
+			<if test="record.picture != null">
+				picture = #{record.picture,jdbcType=VARCHAR},
+			</if>
+			<if test="record.answer != null">
+				answer = #{record.answer,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update problem
+		set id = #{record.id,jdbcType=INTEGER},
+		type = #{record.type,jdbcType=INTEGER},
+		content = #{record.content,jdbcType=VARCHAR},
+		picture = #{record.picture,jdbcType=VARCHAR},
+		answer = #{record.answer,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Problem">
+		update problem
+		<set>
+			<if test="type != null">
+				type = #{type,jdbcType=INTEGER},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="picture != null">
+				picture = #{picture,jdbcType=VARCHAR},
+			</if>
+			<if test="answer != null">
+				answer = #{answer,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.Problem">
+		update problem
+		set type = #{type,jdbcType=INTEGER},
+		content = #{content,jdbcType=VARCHAR},
+		picture = #{picture,jdbcType=VARCHAR},
+		answer = #{answer,jdbcType=VARCHAR}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectproblemonetype" resultType="java.lang.Integer">
+		select questionone from user where userid=#{userid,jdbcType=VARCHAR} 
+	</select>
+
+	<select id="selectproblemtwotype" resultType="java.lang.Integer">
+		select questiontwo from user where userid=#{userid,jdbcType=VARCHAR} 
+	</select>
+
+	<select id="selectproblemthreetype" resultType="java.lang.Integer">
+		select questionthree from user where userid=#{userid,jdbcType=VARCHAR} 
+	</select>
+	
+	<!-- 用户答对问题得到少量现金奖励 -->
+	<insert id="insertMin" parameterType="com.bklkj.pojo.Activityget">
+		insert into Activityget
+		(money,UserId,businessid) values
+		((ceiling(rand()*10)/10),#{userid,jdbcType=VARCHAR},(select businessid from activitytemporary
+		where rownum=#{rownum,jdbcType=INTEGER}))
+	</insert>
+	
+	<select id="selectproblemone" resultMap="BaseResultMap">
+		select * from problem where rownum=1
+	</select>
+	
+	<select id="selectans" resultType="java.lang.Integer">
+		select * from problem where rownum=1
+	</select>
+	
+	
+	<update id="updatebusinessmoney" parameterType="com.bklkj.pojo.Problem">
+		update activity,(select money from activityget where userid=#{userid,jdbcType=VARCHAR} ORDER BY moneytime DESC limit 1)s,(select businessid from activityget where userid=#{userid,jdbcType=VARCHAR} ORDER BY moneytime DESC limit 1)ss set businessactivitymoney = (businessactivitymoney - s.money) where activity.businessid = ss.businessid;
+	</update>
+	
+	<update id="updatebusinessmoney2" parameterType="com.bklkj.pojo.Problem">
+		update activitytemporary,(select money from activityget where userid=#{userid,jdbcType=VARCHAR} ORDER BY moneytime DESC limit 1)s,(select businessid from activityget where userid=#{userid,jdbcType=VARCHAR} ORDER BY moneytime DESC limit 1)ss set businessactivitymoney = (businessactivitymoney - s.money) where activitytemporary.businessid = ss.businessid;
+	</update>
+	
+	<select id="selectrand" resultType="java.lang.Integer">
+		select * from problem where rownum=1
+	</select>
+	<select id="selectmoney" resultType="java.lang.Double">
+		select money from activityget where userid=#{userid,jdbcType=VARCHAR} ORDER BY moneytime DESC limit 1
+	</select>
+	<select id="selectname" resultType="java.lang.String">
+		select businessname from business,(select businessid from activityget where userid=#{userid,jdbcType=VARCHAR} ORDER BY moneytime DESC limit 1)s where business.BusinessId=s.businessid
+	</select>
+	
+	<select id="selectweb" resultType="java.lang.String">
+		select businessWebsite from business,(select businessid from activityget where userid=#{userid,jdbcType=VARCHAR} ORDER BY moneytime DESC limit 1)s where business.BusinessId=s.businessid
+	</select>
+	
+	<select id="selectlogo" resultType="java.lang.String">
+		select logo from business,(select businessid from activityget where userid=#{userid,jdbcType=VARCHAR} ORDER BY moneytime DESC limit 1)s where business.BusinessId=s.businessid
+	</select>
+	
+	<select id="selectintroduce" resultType="java.lang.String">
+		select businessintroduce from business,(select businessid from activityget where userid=#{userid,jdbcType=VARCHAR} ORDER BY moneytime DESC limit 1)s where business.BusinessId=s.businessid
+	</select>
+	
+	<select id="selectproblem" resultMap="BaseResultMap">
+		SELECT * FROM problem ORDER BY RAND() LIMIT 1
+	</select>
+	
+	<select id="selectbusinesstype" resultType="java.lang.Integer">
+		select activitytype from activitytemporary where rownum=1
+	</select>
+	<select id="selectbusinesstype2" resultType="java.lang.Integer">
+		select activitytype from activitytemporary where rownum=2
+	</select>
+	<select id="selectbusinesstype3" resultType="java.lang.Integer">
+		select activitytype from activitytemporary where rownum=3
+	</select>
+	
+	
+	<update id="updatejoinnum1" parameterType="map">
+		update activity set joinnum = joinnum+1 where businessid = (select businessid from activitytemporary where rownum=1)
+	</update>
+	<update id="updatejoinnum2" parameterType="map">
+		update activity set joinnum = joinnum+1 where businessid = (select businessid from activitytemporary where rownum=2)
+	</update>
+	<update id="updatejoinnum3" parameterType="map">
+		update activity set joinnum = joinnum+1 where businessid = (select businessid from activitytemporary where rownum=3)
+	</update>
+	<update id="updatejoinnum11" parameterType="map">
+		update activitytemporary set joinnum = joinnum+1 where rownum=1
+	</update>
+	<update id="updatejoinnum22" parameterType="map">
+		update activitytemporary set joinnum = joinnum+1 where rownum=2
+	</update>
+	<update id="updatejoinnum33" parameterType="map">
+		update activitytemporary set joinnum = joinnum+1 where rownum=3
+	</update>
+	
+</mapper>

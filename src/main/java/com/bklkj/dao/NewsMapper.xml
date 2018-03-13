@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.NewsMapper">
+	<resultMap id="BaseResultMap" type="com.bklkj.pojo.News">
+		<id column="NewsId" property="newsid" jdbcType="INTEGER" />
+		<result column="UserId" property="userid" jdbcType="VARCHAR" />
+		<result column="UserNews" property="usernews" jdbcType="VARCHAR" />
+		<result column="NewsClassification" property="newsclassification"
+			jdbcType="VARCHAR" />
+		<result column="NewsTime" property="newstime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		NewsId, UserId, UserNews, NewsClassification, NewsTime
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.NewsExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from news
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from news
+		where NewsId = #{newsid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from news
+		where NewsId = #{newsid,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.bklkj.pojo.NewsExample">
+		delete from news
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.bklkj.pojo.News">
+		insert into news (NewsId, UserId, UserNews,
+		NewsClassification, NewsTime)
+		values (#{newsid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR},
+		#{usernews,jdbcType=VARCHAR},
+		#{newsclassification,jdbcType=VARCHAR}, #{newstime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bklkj.pojo.News">
+		insert into news
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="newsid != null">
+				NewsId,
+			</if>
+			<if test="userid != null">
+				UserId,
+			</if>
+			<if test="usernews != null">
+				UserNews,
+			</if>
+			<if test="newsclassification != null">
+				NewsClassification,
+			</if>
+			<if test="newstime != null">
+				NewsTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="newsid != null">
+				#{newsid,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="usernews != null">
+				#{usernews,jdbcType=VARCHAR},
+			</if>
+			<if test="newsclassification != null">
+				#{newsclassification,jdbcType=VARCHAR},
+			</if>
+			<if test="newstime != null">
+				#{newstime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.bklkj.pojo.NewsExample"
+		resultType="java.lang.Integer">
+		select count(*) from news
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update news
+		<set>
+			<if test="record.newsid != null">
+				NewsId = #{record.newsid,jdbcType=INTEGER},
+			</if>
+			<if test="record.userid != null">
+				UserId = #{record.userid,jdbcType=INTEGER},
+			</if>
+			<if test="record.usernews != null">
+				UserNews = #{record.usernews,jdbcType=VARCHAR},
+			</if>
+			<if test="record.newsclassification != null">
+				NewsClassification = #{record.newsclassification,jdbcType=VARCHAR},
+			</if>
+			<if test="record.newstime != null">
+				NewsTime = #{record.newstime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update news
+		set NewsId = #{record.newsid,jdbcType=INTEGER},
+		UserId = #{record.userid,jdbcType=INTEGER},
+		UserNews = #{record.usernews,jdbcType=VARCHAR},
+		NewsClassification = #{record.newsclassification,jdbcType=VARCHAR},
+		NewsTime = #{record.newstime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.News">
+		update news
+		<set>
+			<if test="userid != null">
+				UserId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="usernews != null">
+				UserNews = #{usernews,jdbcType=VARCHAR},
+			</if>
+			<if test="newsclassification != null">
+				NewsClassification = #{newsclassification,jdbcType=VARCHAR},
+			</if>
+			<if test="newstime != null">
+				NewsTime = #{newstime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where NewsId = #{newsid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.News">
+		update news
+		set UserId = #{userid,jdbcType=VARCHAR},
+		UserNews = #{usernews,jdbcType=VARCHAR},
+		NewsClassification = #{newsclassification,jdbcType=VARCHAR},
+		NewsTime = #{newstime,jdbcType=TIMESTAMP}
+		where NewsId = #{newsid,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectAll" resultMap="BaseResultMap">
+		select UserNews,NewsClassification,NewsTime from news where
+		userId=#{userid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectmsgType" resultMap="BaseResultMap">
+		select NewsClassification from news where userid=#{userid,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectusernews" resultMap="BaseResultMap">
+		select UserNews,NewsTime from news where userid=#{userid,jdbcType=VARCHAR}
+		and NewsClassification = #{newsclassification,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

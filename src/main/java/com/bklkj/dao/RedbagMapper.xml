@@ -1,0 +1,464 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.RedbagMapper">
+	<resultMap id="BaseResultMap" type="com.bklkj.pojo.Redbag">
+		<id column="RedBagId" property="redbagid" jdbcType="INTEGER" />
+		<result column="RedBagMoney" property="redbagmoney" jdbcType="DOUBLE" />
+		<result column="RedBagBusiness" property="redbagbusiness"
+			jdbcType="VARCHAR" />
+		<result column="UserId" property="userid" jdbcType="VARCHAR" />
+		<result column="BusinessId" property="businessid" jdbcType="INTEGER" />
+		<result column="Coupon" property="coupon" jdbcType="VARCHAR" />
+		<result column="CouponTime" property="coupontime" jdbcType="TIMESTAMP" />
+		<result column="Integral" property="integral" jdbcType="INTEGER" />
+		<result column="IntegralTime" property="integraltime" jdbcType="TIMESTAMP" />
+		<result column="RedbagNum" property="redbagnum" jdbcType="INTEGER" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		RedBagId, RedBagMoney, RedBagBusiness, UserId, BusinessId, Coupon, CouponTime,
+		Integral,
+		IntegralTime, RedbagNum
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.RedbagExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from redbag
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from redbag
+		where RedBagId = #{redbagid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from redbag
+		where RedBagId = #{redbagid,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.bklkj.pojo.RedbagExample">
+		delete from redbag
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.bklkj.pojo.Redbag">
+		insert into redbag (RedBagId, RedBagMoney, RedBagBusiness,
+		UserId, BusinessId, Coupon,
+		CouponTime, Integral, IntegralTime,
+		RedbagNum)
+		values (#{redbagid,jdbcType=INTEGER}, #{redbagmoney,jdbcType=DOUBLE},
+		#{redbagbusiness,jdbcType=VARCHAR},
+		#{userid,jdbcType=VARCHAR}, #{businessid,jdbcType=INTEGER}, #{coupon,jdbcType=VARCHAR},
+		#{coupontime,jdbcType=TIMESTAMP}, #{integral,jdbcType=INTEGER},
+		#{integraltime,jdbcType=TIMESTAMP},
+		#{redbagnum,jdbcType=INTEGER})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bklkj.pojo.Redbag">
+		insert into redbag
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="redbagid != null">
+				RedBagId,
+			</if>
+			<if test="redbagmoney != null">
+				RedBagMoney,
+			</if>
+			<if test="redbagbusiness != null">
+				RedBagBusiness,
+			</if>
+			<if test="userid != null">
+				UserId,
+			</if>
+			<if test="businessid != null">
+				BusinessId,
+			</if>
+			<if test="coupon != null">
+				Coupon,
+			</if>
+			<if test="coupontime != null">
+				CouponTime,
+			</if>
+			<if test="integral != null">
+				Integral,
+			</if>
+			<if test="integraltime != null">
+				IntegralTime,
+			</if>
+			<if test="redbagnum != null">
+				RedbagNum,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="redbagid != null">
+				#{redbagid,jdbcType=INTEGER},
+			</if>
+			<if test="redbagmoney != null">
+				#{redbagmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="redbagbusiness != null">
+				#{redbagbusiness,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="businessid != null">
+				#{businessid,jdbcType=INTEGER},
+			</if>
+			<if test="coupon != null">
+				#{coupon,jdbcType=VARCHAR},
+			</if>
+			<if test="coupontime != null">
+				#{coupontime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="integral != null">
+				#{integral,jdbcType=INTEGER},
+			</if>
+			<if test="integraltime != null">
+				#{integraltime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="redbagnum != null">
+				#{redbagnum,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.bklkj.pojo.RedbagExample"
+		resultType="java.lang.Integer">
+		select count(*) from redbag
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update redbag
+		<set>
+			<if test="record.redbagid != null">
+				RedBagId = #{record.redbagid,jdbcType=INTEGER},
+			</if>
+			<if test="record.redbagmoney != null">
+				RedBagMoney = #{record.redbagmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="record.redbagbusiness != null">
+				RedBagBusiness = #{record.redbagbusiness,jdbcType=VARCHAR},
+			</if>
+			<if test="record.userid != null">
+				UserId = #{record.userid,jdbcType=INTEGER},
+			</if>
+			<if test="record.businessid != null">
+				BusinessId = #{record.businessid,jdbcType=INTEGER},
+			</if>
+			<if test="record.coupon != null">
+				Coupon = #{record.coupon,jdbcType=VARCHAR},
+			</if>
+			<if test="record.coupontime != null">
+				CouponTime = #{record.coupontime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.integral != null">
+				Integral = #{record.integral,jdbcType=INTEGER},
+			</if>
+			<if test="record.integraltime != null">
+				IntegralTime = #{record.integraltime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.redbagnum != null">
+				RedbagNum = #{record.redbagnum,jdbcType=INTEGER},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update redbag
+		set RedBagId = #{record.redbagid,jdbcType=INTEGER},
+		RedBagMoney = #{record.redbagmoney,jdbcType=DOUBLE},
+		RedBagBusiness = #{record.redbagbusiness,jdbcType=VARCHAR},
+		UserId = #{record.userid,jdbcType=INTEGER},
+		BusinessId = #{record.businessid,jdbcType=INTEGER},
+		Coupon = #{record.coupon,jdbcType=VARCHAR},
+		CouponTime = #{record.coupontime,jdbcType=TIMESTAMP},
+		Integral = #{record.integral,jdbcType=INTEGER},
+		IntegralTime = #{record.integraltime,jdbcType=TIMESTAMP},
+		RedbagNum = #{record.redbagnum,jdbcType=INTEGER}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Redbag">
+		update redbag
+		<set>
+			<if test="redbagmoney != null">
+				RedBagMoney = #{redbagmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="redbagbusiness != null">
+				RedBagBusiness = #{redbagbusiness,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				UserId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="businessid != null">
+				BusinessId = #{businessid,jdbcType=INTEGER},
+			</if>
+			<if test="coupon != null">
+				Coupon = #{coupon,jdbcType=VARCHAR},
+			</if>
+			<if test="coupontime != null">
+				CouponTime = #{coupontime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="integral != null">
+				Integral = #{integral,jdbcType=INTEGER},
+			</if>
+			<if test="integraltime != null">
+				IntegralTime = #{integraltime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="redbagnum != null">
+				RedbagNum = #{redbagnum,jdbcType=INTEGER},
+			</if>
+		</set>
+		where RedBagId = #{redbagid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.Redbag">
+		update redbag
+		set RedBagMoney = #{redbagmoney,jdbcType=DOUBLE},
+		RedBagBusiness = #{redbagbusiness,jdbcType=VARCHAR},
+		UserId = #{userid,jdbcType=VARCHAR},
+		BusinessId = #{businessid,jdbcType=INTEGER},
+		Coupon = #{coupon,jdbcType=VARCHAR},
+		CouponTime = #{coupontime,jdbcType=TIMESTAMP},
+		Integral = #{integral,jdbcType=INTEGER},
+		IntegralTime = #{integraltime,jdbcType=TIMESTAMP},
+		RedbagNum = #{redbagnum,jdbcType=INTEGER}
+		where RedBagId = #{redbagid,jdbcType=INTEGER}
+	</update>
+	<!-- 用户得到红包 -->
+	<update id="updateRedbag" parameterType="com.bklkj.pojo.Redbag">
+		update redbag
+		set
+		UserId = #{userid,jdbcType=VARCHAR},
+		BusinessId = #{businessid,jdbcType=INTEGER},
+		RedBagBusiness = #{redbagbusiness,jdbcType=VARCHAR},
+		BusinessId = #{businessid,jdbcType=INTEGER},
+		RedbagNum = RedbagNum + '1'
+		where
+		UserId = #{userid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateRedbag2" parameterType="com.bklkj.pojo.Redbag">
+		update redbag
+		set
+		RedBagId = #{redbagid,jdbcType=INTEGER}
+		RedBagBusiness = #{redbagbusiness,jdbcType=VARCHAR},
+		BusinessId = #{businessid,jdbcType=INTEGER},
+		RedbagNum = '1'
+		where
+		UserId = #{userid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateRedbag3" parameterType="com.bklkj.pojo.Redbag">
+		update redbag
+		set
+		Coupon = #{coupon,jdbcType=VARCHAR},
+		CouponTime = #{coupontime,jdbcType=TIMESTAMP},
+		where
+		UserId = #{userid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateRedbag4" parameterType="com.bklkj.pojo.Redbag">
+		update redbag
+		set RedBagMoney = #{redbagmoney,jdbcType=DOUBLE},
+		RedBagBusiness = #{redbagbusiness,jdbcType=VARCHAR},
+		BusinessId = #{businessid,jdbcType=INTEGER},
+		Integral = #{integral,jdbcType=INTEGER},
+		IntegralTime = #{integraltime,jdbcType=TIMESTAMP},
+		where UserId = #{userid,jdbcType=VARCHAR}
+	</update>
+	<!-- 查看用户是否是第一次打开红包 -->
+	<select id="selectUserIdJudge" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select judge from redbag where UserId = #{userid,jdbcType=VARCHAR}
+	</select>
+	<!-- 查询里面有没有用户 -->
+	<select id="selectByUserId" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.Redbag">
+		select * from Redbag where UserId = #{userid,jdbcType=VARCHAR}
+	</select>
+	<!-- 用户第一次打开红包 -->
+	<insert id="insertMax" parameterType="com.bklkj.pojo.Redbag">
+	insert into Redbag (redbagmoney,UserId,businessid) values((SELECT FORMAT((ceiling(rand()*30)/10+5),2)),#{userid,jdbcType=VARCHAR},(select businessid from activity where businessactivitymoney>20 GROUP BY RAND() LIMIT 1))	</insert>
+
+	<select id="selectBusinessName" resultType="java.lang.String">
+		select DISTINCT businessname FROM redbag,business where redbag.userid= #{userid,jdbcType=VARCHAR}
+		and business.businessid = (select businessid from redbag  WHERE userid=#{userid,jdbcType=VARCHAR} ORDER BY redbagtime desc limit 1 )
+	</select>
+	
+	<select id="selectBusinessweb" resultType="java.lang.String">
+		select DISTINCT businesswebsite FROM redbag,business where redbag.userid= #{userid,jdbcType=VARCHAR}
+		and business.businessid = (select businessid from redbag  WHERE userid=#{userid,jdbcType=VARCHAR} ORDER BY redbagtime desc limit 1 )
+	</select>
+	
+		<select id="selectBusinessPiture" resultType="java.lang.String">
+		select DISTINCT logo FROM redbag,business where redbag.userid= #{userid,jdbcType=VARCHAR}
+		and business.businessid = (select businessid from redbag  WHERE userid=#{userid,jdbcType=VARCHAR} ORDER BY redbagtime desc limit 1 )
+	</select>
+	
+	<select id="selectbusinessintroduce" resultType="java.lang.String">
+		select DISTINCT businessintroduce FROM redbag,business where redbag.userid= #{userid,jdbcType=VARCHAR}
+		and business.businessid = (select businessid from redbag  WHERE userid=#{userid,jdbcType=VARCHAR} ORDER BY redbagtime desc limit 1 )
+	</select>
+
+	<!-- 用户不是第一次打开红包 -->
+	<insert id="insertMin" parameterType="com.bklkj.pojo.Redbag">
+		insert into Redbag (redbagmoney,UserId,businessid) values
+		((ceiling(rand()*10)/10),#{userid,jdbcType=VARCHAR},(select businessid from activity where businessactivitymoney>20 GROUP BY RAND() LIMIT 1))
+	</insert>
+
+	<!-- 查询最后一次红包 -->
+	<select id="selectLast" resultMap="BaseResultMap" parameterType="com.bklkj.pojo.Redbag">
+		select redbagmoney from redbag where UserId=#{userid,jdbcType=VARCHAR}
+		GROUP BY RedBagTime desc limit 1
+	</select>
+	<!-- 查询总收入 -->
+	<select id="selectSumMoney" resultType="java.lang.Double"
+		parameterType="java.lang.String">
+		select ifnull((rm.sumredbagmoney+m.summoney),0.00)AS money
+		from (select userid,SUM(redbagmoney)sumredbagmoney from redbag where userid=#{userid,jdbcType=VARCHAR} )rm,(select ifnull((SUM(money)),0.00)AS summoney
+		from activityget where userid=#{userid,jdbcType=VARCHAR}  )m where userid=#{userid,jdbcType=VARCHAR} GROUP BY userid
+			</select>
+	
+	<update id="updatebusinessmoney" parameterType="com.bklkj.pojo.Activity">
+		update activity,(select redbagmoney from redbag  WHERE userid=#{userid,jdbcType=VARCHAR} ORDER BY redbagtime desc limit 1)s,(select businessid from redbag  WHERE userid=#{userid,jdbcType=VARCHAR} ORDER BY redbagtime desc limit 1 )ss set businessactivitymoney = (businessactivitymoney - s.redbagmoney) where activity.businessid = ss.businessid
+	</update>
+	
+	<!-- 红包的收入记录的查询 -->
+	<select id="selectredbagrecord" resultType="java.lang.String" >
+		select DISTINCT s.RedbagMoney,s.RedBagTime,businessname,logo from business,redbag,(select RedbagMoney,RedBagTime,businessid from redbag where userid=#{userid,jdbcType=VARCHAR})s where userid=#{userid,jdbcType=VARCHAR} and business.BusinessId=s.businessid ORDER BY RedBagTime DESC 
+	</select>
+	<!-- 红包的收入记录的查询 -->
+	<select id="selectime" resultType="java.lang.String" >
+		<!-- select DISTINCT DATE_FORMAT( s.RedBagTime, "%Y-%m-%d %k:%i:%s"),s.redbagmoney from business,redbag,(select RedbagMoney,RedBagTime,businessid from redbag where userid=#{userid,jdbcType=VARCHAR})s where userid=#{userid,jdbcType=VARCHAR} and business.BusinessId=s.businessid ORDER BY s.RedBagTime DESC 
+ -->
+ select DATE_FORMAT( c.redbagtime, "%Y-%m-%d %k:%i:%s") from (select b.businessname,b.logo,a.redbagmoney,a.redbagtime from (select businessname,BusinessId,logo from business)b,(select businessid,redbagmoney,redbagtime from redbag where userid=#{userid,jdbcType=VARCHAR})a where a.businessid=b.businessid ORDER BY a.redbagtime DESC )c
+ 
+	</select>
+	
+	<!-- 红包的收入记录的查询 -->
+	<select id="selectnames" resultType="java.lang.String" >
+		<!-- select DISTINCT businessname,s.redbagmoney from business,redbag,(select RedbagMoney,RedBagTime,businessid from redbag where userid=#{userid,jdbcType=VARCHAR})s where userid=#{userid,jdbcType=VARCHAR} and business.BusinessId=s.businessid ORDER BY s.RedBagTime DESC 
+ -->
+ select business.businessname from business,(select businessid from redbag where userid=#{userid,jdbcType=VARCHAR})qq where qq.businessid=business.BusinessId 
+ 	</select>
+	
+	<!-- 红包的收入记录的查询 -->
+	<select id="selectlogo" resultType="java.lang.String" >
+		<!-- select DISTINCT logo,s.redbagmoney from business,redbag,(select RedbagMoney,RedBagTime,businessid from redbag where userid=#{userid,jdbcType=VARCHAR})s where userid=#{userid,jdbcType=VARCHAR} and business.BusinessId=s.businessid ORDER BY s.RedBagTime DESC 
+ -->	
+ select business.logo from business,(select businessid from redbag where userid=#{userid,jdbcType=VARCHAR})qq where qq.businessid=business.BusinessId 
+ </select>
+	
+	
+	<select id="selectmoney" resultType="java.lang.String" >
+		select redbagmoney from (select usernickname,redbagmoney from redbag,user where user.userid=redbag.userid)e;
+	</select>
+
+
+	<select id="selectpaihangmoney" resultType="java.lang.Double" >
+		select SUM(withdrawalsmoney) from withdrawals where userid=#{userid,jdbcType=VARCHAR}
+	</select>
+	
+	
+	<select id="selectpaihang" resultType="java.lang.Integer" >
+		SELECT ro.rownum from (select * from (select mm.userid,(@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname
+		from (select @rownum:=0)t,user,(select
+		rm.userid,rm.maxredbagmoney AS money
+		from (select userid,max(redbagmoney)maxredbagmoney from redbag GROUP BY
+		userid)rm )mm where mm.userid=`user`.userid ORDER
+		BY mm.money DESC)ss)ro where userid=#{userid,jdbcType=VARCHAR}
+	</select>
+	<select id="selectpaihangno" resultType="java.lang.Integer" >
+	select rownum+1 from (select * from (select mm.userid,(@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname
+		from (select @rownum:=0)t,user,(select
+		rm.userid,rm.maxredbagmoney AS money
+		from (select userid,max(redbagmoney)maxredbagmoney from redbag GROUP BY
+		userid)rm )mm where mm.userid=`user`.userid ORDER
+		BY mm.money DESC)ss )mit where userid=(select ss.userid from (select mm.userid,(@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname
+		from (select @rownum:=0)t,user,(select
+		rm.userid,rm.maxredbagmoney AS money
+		from (select userid,max(redbagmoney)maxredbagmoney from redbag GROUP BY
+		userid)rm )mm where mm.userid=`user`.userid ORDER
+		BY mm.money)ss LIMIT 1)
+	</select>
+	
+	<select id="selectredbagtype" resultType="java.lang.Integer" >
+	select * from usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagtype=1
+	</select>
+</mapper>

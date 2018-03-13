@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	version="3.0">
+	<display-name>Archetype Created Web Application</display-name>
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<filter>
+		<filter-name>CORS</filter-name>
+		<filter-class>com.thetransactioncompany.cors.CORSFilter</filter-class>
+		<init-param>
+			<param-name>cors.allowOrigin</param-name>
+			<param-value>*</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportedMethods</param-name>
+			<param-value>GET, POST, HEAD, PUT, DELETE</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportedHeaders</param-name>
+			<param-value>Accept, Origin, X-Requested-With, Content-Type, Last-Modified</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.exposedHeaders</param-name>
+			<param-value>Set-Cookie</param-value>
+		</init-param>
+		<init-param>
+			<param-name>cors.supportsCredentials</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<async-supported>true</async-supported>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<servlet>
+		<servlet-name>SpringMVC</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring-mvc.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+		<async-supported>true</async-supported>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SpringMVC</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+
+	<!-- 支付宝下单 -->
+	<servlet>
+		<servlet-name>AlipayServlet</servlet-name>
+		<servlet-class>ycq.servlet.AlipayServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AlipayServlet</servlet-name>
+		<url-pattern>/AlipayWeb</url-pattern>
+	</servlet-mapping>
+
+	<!-- 支付宝查询订单 -->
+	<servlet>
+		<servlet-name>OrderQueryServlet</servlet-name>
+		<servlet-class>ycq.servlet.OrderQueryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderQueryServlet</servlet-name>
+		<url-pattern>/OrderQueryWeb</url-pattern>
+	</servlet-mapping>
+
+	<!-- 支付宝退款 -->
+	<servlet>
+		<servlet-name>OrderRefundServlet</servlet-name>
+		<servlet-class>ycq.servlet.OrderRefundServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderRefundServlet</servlet-name>
+		<url-pattern>/OrderRefundWeb</url-pattern>
+	</servlet-mapping>
+
+	<!-- 支付宝预下单异步通知 -->
+	<servlet>
+		<servlet-name>OrderNotifyServlet</servlet-name>
+		<servlet-class>ycq.servlet.OrderNotifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderNotifyServlet</servlet-name>
+		<url-pattern>/OrderNotifyWeb</url-pattern>
+	</servlet-mapping>
+
+	<!-- 支付宝预下单同步通知 -->
+	<servlet>
+		<servlet-name>OrderReturnServlet</servlet-name>
+		<servlet-class>ycq.servlet.OrderReturnServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>OrderReturnServlet</servlet-name>
+		<url-pattern>/OrderReturnWeb</url-pattern>
+	</servlet-mapping>
+
+	<!-- 支付宝查询订单退款 -->
+	<servlet>
+		<servlet-name>RefundQueryServlet</servlet-name>
+		<servlet-class>ycq.servlet.RefundQueryServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RefundQueryServlet</servlet-name>
+		<url-pattern>/RefundQueryWeb</url-pattern>
+	</servlet-mapping>
+
+	<!-- 支付宝单笔转账到支付宝账号 -->
+	<servlet>
+		<servlet-name>TransAccountServlet</servlet-name>
+		<servlet-class>ycq.servlet.TransAccountServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>TransAccountServlet</servlet-name>
+		<url-pattern>/TransAccountWeb</url-pattern>
+	</servlet-mapping>
+
+	<filter>
+		<filter-name>CodeFilter</filter-name>
+		<filter-class>com.bklkj.Commons.pageUtil.CodeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CodeFilter</filter-name>
+		<url-pattern>*</url-pattern>
+	</filter-mapping>
+
+</web-app>

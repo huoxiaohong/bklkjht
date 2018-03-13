@@ -1,0 +1,948 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.UsertoredbagMapper">
+	<resultMap id="BaseResultMap" type="com.bklkj.pojo.Usertoredbag">
+		<id column="Id" property="id" jdbcType="INTEGER" />
+		<result column="UserId" property="userid" jdbcType="VARCHAR" />
+		<result column="Money" property="money" jdbcType="DOUBLE" />
+		<result column="MaxMoney" property="maxmoney" jdbcType="DOUBLE" />
+		<result column="MoneyTime" property="moneytime" jdbcType="TIMESTAMP" />
+		<result column="TotalMoney" property="totalmoney" jdbcType="DOUBLE" />
+		<result column="MaxMoneyTime" property="maxmoneytime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		Id, UserId, Money, MaxMoney, MoneyTime, TotalMoney,
+		MaxMoneyTime
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.UsertoredbagExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from usertoredbag
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from usertoredbag
+		where Id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		usertoredbag
+		where Id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.bklkj.pojo.UsertoredbagExample">
+		delete from usertoredbag
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.bklkj.pojo.Usertoredbag">
+		insert into usertoredbag (Id,
+		UserId, Money,
+		MaxMoney, MoneyTime, TotalMoney,
+		MaxMoneyTime)
+		values
+		(#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR},
+		#{money,jdbcType=DOUBLE},
+		#{maxmoney,jdbcType=DOUBLE},
+		#{moneytime,jdbcType=TIMESTAMP}, #{totalmoney,jdbcType=DOUBLE},
+		#{maxmoneytime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bklkj.pojo.Usertoredbag">
+		insert into usertoredbag
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				Id,
+			</if>
+			<if test="userid != null">
+				UserId,
+			</if>
+			<if test="money != null">
+				Money,
+			</if>
+			<if test="maxmoney != null">
+				MaxMoney,
+			</if>
+			<if test="moneytime != null">
+				MoneyTime,
+			</if>
+			<if test="totalmoney != null">
+				TotalMoney,
+			</if>
+			<if test="maxmoneytime != null">
+				MaxMoneyTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="money != null">
+				#{money,jdbcType=DOUBLE},
+			</if>
+			<if test="maxmoney != null">
+				#{maxmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="moneytime != null">
+				#{moneytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="totalmoney != null">
+				#{totalmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="maxmoneytime != null">
+				#{maxmoneytime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.bklkj.pojo.UsertoredbagExample"
+		resultType="java.lang.Integer">
+		select count(*) from usertoredbag
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update usertoredbag
+		<set>
+			<if test="record.id != null">
+				Id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.userid != null">
+				UserId = #{record.userid,jdbcType=INTEGER},
+			</if>
+			<if test="record.money != null">
+				Money = #{record.money,jdbcType=DOUBLE},
+			</if>
+			<if test="record.maxmoney != null">
+				MaxMoney = #{record.maxmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="record.moneytime != null">
+				MoneyTime = #{record.moneytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.totalmoney != null">
+				TotalMoney = #{record.totalmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="record.maxmoneytime != null">
+				MaxMoneyTime = #{record.maxmoneytime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update usertoredbag
+		set Id = #{record.id,jdbcType=INTEGER},
+		UserId =
+		#{record.userid,jdbcType=INTEGER},
+		Money =
+		#{record.money,jdbcType=DOUBLE},
+		MaxMoney =
+		#{record.maxmoney,jdbcType=DOUBLE},
+		MoneyTime =
+		#{record.moneytime,jdbcType=TIMESTAMP},
+		TotalMoney =
+		#{record.totalmoney,jdbcType=DOUBLE},
+		MaxMoneyTime =
+		#{record.maxmoneytime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Usertoredbag">
+		update usertoredbag
+		<set>
+			<if test="userid != null">
+				UserId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="money != null">
+				Money = #{money,jdbcType=DOUBLE},
+			</if>
+			<if test="maxmoney != null">
+				MaxMoney = #{maxmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="moneytime != null">
+				MoneyTime = #{moneytime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="totalmoney != null">
+				TotalMoney = #{totalmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="maxmoneytime != null">
+				MaxMoneyTime = #{maxmoneytime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.Usertoredbag">
+		update
+		usertoredbag
+		set UserId = #{userid,jdbcType=VARCHAR},
+		Money =
+		#{money,jdbcType=DOUBLE},
+		MaxMoney = #{maxmoney,jdbcType=DOUBLE},
+		MoneyTime = #{moneytime,jdbcType=TIMESTAMP},
+		TotalMoney =
+		#{totalmoney,jdbcType=DOUBLE},
+		MaxMoneyTime =
+		#{maxmoneytime,jdbcType=TIMESTAMP}
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 查询总金额并且排序 -->
+	<select id="selectByTotalMoney" resultMap="BaseResultMap">
+		<!-- select * from (select (@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname 
+			from (select @rownum:=0)t,user,(select rm.userid,(rm.sumredbagmoney+m.summoney) 
+			AS money from (select userid,SUM(redbagmoney)sumredbagmoney from redbag GROUP 
+			BY userid)rm,(select SUM(money)summoney from activityget GROUP BY userid)m 
+			)mm where mm.userid=`user`.userid ORDER BY mm.money DESC)ss where ss.rownum 
+			BETWEEN 1 and 20 -->
+		select usernickname,(@rownum:=@rownum+1)AS rownum,ss.money from
+		(select userid,SUM(money) money from (select SUM(money)money,userid
+		from activityget GROUP BY userid UNION
+		select
+		SUM(redbagmoney)money,userid from redbag GROUP BY userid)mm GROUP BY
+		userid)ss,user,(select @rownum:=0)t where user.userid=ss.userid ORDER
+		BY ss.money DESC limit 30
+	</select>
+
+	<!-- 查询个人总金额并且排序 -->
+	<select id="selectByTotalMoneyone" resultMap="BaseResultMap">
+		<!-- select * from (select mm.userid,(@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname 
+			from (select @rownum:=0)t,user,(select rm.userid,(rm.sumredbagmoney+m.summoney) 
+			AS money from (select userid,SUM(redbagmoney)sumredbagmoney from redbag GROUP 
+			BY userid)rm,(select SUM(money)summoney from activityget GROUP BY userid)m 
+			)mm where mm.userid=`user`.userid ORDER BY mm.money DESC)s where userid=#{userid,jdbcType=VARCHAR} -->
+
+		select * from (select usernickname,rownum,ss.money,ss.userid from
+		(select (@rownum:=@rownum+1)AS rownum,userid,SUM(money) money from
+		(select SUM(money)money,userid from activityget GROUP BY userid UNION
+		select SUM(redbagmoney)money,userid from redbag GROUP BY
+		userid)mm,(select @rownum:=0)t GROUP BY userid)ss,user where
+		user.userid=ss.userid ORDER BY ss.money DESC limit 30
+		)ee where
+		userid=#{userid,jdbcType=VARCHAR}
+	</select>
+
+
+	<!-- 查询个人renpin并且排序 -->
+	<select id="selectBymaxMoneyone" resultMap="BaseResultMap">
+		select * from (select
+		usernickname,rownum,ss.money,ss.userid from (select
+		(@rownum:=@rownum+1)AS rownum,userid,max(money) money from (select
+		SUM(money)money,userid from activityget GROUP BY userid UNION
+		select
+		max(redbagmoney)money,userid from redbag GROUP BY userid)mm,(select
+		@rownum:=0)t GROUP BY userid)ss,user where user.userid=ss.userid ORDER
+		BY ss.money DESC limit 30
+		)yy where
+		yy.userid=#{userid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询总金额排序的序号 -->
+	<select id="selectrownum" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		<!-- SELECT ro.rownum from (select mm.userid,(@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname 
+			from (select @rownum:=0)t,user,(select rm.userid,(rm.sumredbagmoney+m.summoney) 
+			AS money from (select userid,SUM(redbagmoney)sumredbagmoney from redbag GROUP 
+			BY userid)rm,(select SUM(money)summoney from activityget GROUP BY userid)m 
+			)mm where mm.userid=`user`.userid ORDER BY mm.money DESC)ro -->
+
+		select rownum from (select usernickname,(@rownum:=@rownum+1)AS
+		rownum,ss.money from (select userid,SUM(money) money from (select
+		SUM(money)money,userid from activityget GROUP BY userid UNION
+		select
+		SUM(redbagmoney)money,userid from redbag GROUP BY userid)mm GROUP BY
+		userid)ss,user,(select @rownum:=0)t where user.userid=ss.userid ORDER
+		BY ss.money DESC limit 30 )mm
+	</select>
+
+	<!-- 查询最大值排序的序号 -->
+	<select id="selectmaxrownum" resultType="java.lang.String">
+		<!-- SELECT ro.rownum from (select * from (select (@rownum:=@rownum+1) 
+			AS rownum,mm.money,`user`.UserNickname from (select @rownum:=0)t,user,(select 
+			rm.userid,rm.maxredbagmoney AS money from (select userid,max(redbagmoney)maxredbagmoney 
+			from redbag GROUP BY userid)rm )mm where mm.userid=`user`.userid ORDER BY 
+			mm.money DESC)ss where ss.rownum )ro -->
+		select rownum from (select usernickname,(@rownum:=@rownum+1)AS
+		rownum,ss.money from (select userid,max(money) money from (select
+		max(money)money,userid from activityget GROUP BY userid UNION
+		select
+		max(redbagmoney)money,userid from redbag GROUP BY userid)mm GROUP BY
+		userid)ss,user,(select @rownum:=0)t where user.userid=ss.userid ORDER
+		BY ss.money DESC limit 20
+		)tt
+	</select>
+
+	<!-- 查询最后一个人的序号 -->
+	<select id="selectlastrownum" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		<!-- select rownum from (select mm.userid,(@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname 
+			from (select @rownum:=0)t,user,(select rm.userid,(rm.sumredbagmoney+m.summoney) 
+			AS money from (select userid,SUM(redbagmoney)sumredbagmoney from redbag GROUP 
+			BY userid)rm,(select SUM(money)summoney from activityget GROUP BY userid)m 
+			)mm where mm.userid=`user`.userid ORDER BY mm.money DESC)s where userid=(select 
+			mit.userid from (select mm.userid,(@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname 
+			from (select @rownum:=0)t,user,(select rm.userid,(rm.sumredbagmoney+m.summoney) 
+			AS money from (select userid,SUM(redbagmoney)sumredbagmoney from redbag GROUP 
+			BY userid)rm,(select SUM(money)summoney from activityget GROUP BY userid)m 
+			)mm where mm.userid=`user`.userid ORDER BY mm.money )mit limit 1) -->
+		select rownum from (select * from (select
+		usernickname,rownum,ss.money,ss.userid from (select
+		(@rownum:=@rownum+1)AS rownum,userid,SUM(money) money from (select
+		SUM(money)money,userid from activityget GROUP BY userid UNION
+		select
+		SUM(redbagmoney)money,userid from redbag GROUP BY userid)mm,(select
+		@rownum:=0)t GROUP BY userid)ss,user where user.userid=ss.userid ORDER
+		BY ss.money DESC limit 30
+		)ee ORDER BY rownum DESC LIMIT 1)rr
+	</select>
+
+	<!-- 查询最后一个人的序号 -->
+	<select id="selectmaxlastrownum" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		<!-- select rownum+1 from (select * from (select mm.userid,(@rownum:=@rownum+1) 
+			AS rownum,mm.money,`user`.UserNickname from (select @rownum:=0)t,user,(select 
+			rm.userid,rm.maxredbagmoney AS money from (select userid,max(redbagmoney)maxredbagmoney 
+			from redbag GROUP BY userid)rm )mm where mm.userid=`user`.userid ORDER BY 
+			mm.money DESC)ss )mit where userid=(select ss.userid from (select mm.userid,(@rownum:=@rownum+1) 
+			AS rownum,mm.money,`user`.UserNickname from (select @rownum:=0)t,user,(select 
+			rm.userid,rm.maxredbagmoney AS money from (select userid,max(redbagmoney)maxredbagmoney 
+			from redbag GROUP BY userid)rm )mm where mm.userid=`user`.userid ORDER BY 
+			mm.money)ss LIMIT 1) -->
+
+		select rownum+1 from (select usernickname,rownum,ss.money,ss.userid
+		from (select (@rownum:=@rownum+1)AS rownum,userid,max(money) money
+		from (select SUM(money)money,userid from activityget GROUP BY userid
+		UNION
+		select max(redbagmoney)money,userid from redbag GROUP BY
+		userid)mm,(select
+		@rownum:=0)t GROUP BY userid)ss,user where
+		user.userid=ss.userid ORDER
+		BY ss.money DESC limit 30
+		)yy ORDER BY
+		rownum DESC limit 1
+	</select>
+
+	<!-- 查询总金额排序的个人序号 -->
+	<select id="selectrownumone" resultType="java.lang.Integer">
+		<!-- SELECT ro.rownum from (select mm.userid,(@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname 
+			from (select @rownum:=0)t,user,(select rm.userid,(rm.sumredbagmoney+m.summoney) 
+			AS money from (select userid,SUM(redbagmoney)sumredbagmoney from redbag GROUP 
+			BY userid)rm,(select SUM(money)summoney from activityget GROUP BY userid)m 
+			)mm where mm.userid=`user`.userid ORDER BY mm.money DESC)ro where userid=#{userid,jdbcType=VARCHAR} -->
+		select rownum from (select usernickname,rownum,ss.money,ss.userid from
+		(select (@rownum:=@rownum+1)AS rownum,userid,SUM(money) money from
+		(select SUM(money)money,userid from activityget GROUP BY userid UNION
+		select SUM(redbagmoney)money,userid from redbag GROUP BY
+		userid)mm,(select @rownum:=0)t GROUP BY userid)ss,user where
+		user.userid=ss.userid ORDER BY ss.money DESC limit 30
+		)ee where userid
+		= #{userid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询人品排序的个人序号 -->
+	<select id="selectMAXrownumone" resultType="java.lang.Integer">
+		select rownum from
+		(select (@rownum:=@rownum+1)AS rownum,usernickname,ss.money,ss.userid
+		from
+		(select userid,max(money) money from
+		(select SUM(money)money,userid
+		from activityget GROUP BY userid UNION
+		select
+		max(redbagmoney)money,userid from redbag GROUP BY
+		userid)mm GROUP BY
+		userid)ss,user,(select @rownum:=0)t where
+		user.userid=ss.userid ORDER
+		BY ss.money DESC
+		)yy where yy.userid=#{userid,jdbcType=VARCHAR}
+	</select>
+
+	<!-- 查询总金额排序的昵称 -->
+	<select id="selectusernickname" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		<!-- SELECT ro.usernickname from (select (@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname 
+			from (select @rownum:=0)t,user,(select rm.userid,(rm.sumredbagmoney+m.summoney) 
+			AS money from (select userid,SUM(redbagmoney)sumredbagmoney from redbag GROUP 
+			BY userid)rm,(select SUM(money)summoney from activityget GROUP BY userid)m 
+			)mm where mm.userid=`user`.userid ORDER BY mm.money DESC)ro; -->
+		select usernickname from (select usernickname,rownum,ss.money from
+		(select (@rownum:=@rownum+1)AS rownum,userid,SUM(money) money from
+		(select SUM(money)money,userid from activityget GROUP BY userid UNION
+		select SUM(redbagmoney)money,userid from redbag GROUP BY
+		userid)mm,(select @rownum:=0)t GROUP BY userid)ss,user where
+		user.userid=ss.userid ORDER BY ss.money DESC limit 30)mm
+
+	</select>
+
+	<!-- 查询人品排序的昵称 -->
+	<select id="selectmaxusernickname" resultType="java.lang.String"
+		parameterType="java.lang.String">
+		<!-- SELECT ro.usernickname from (select * from (select (@rownum:=@rownum+1) 
+			AS rownum,mm.money,`user`.UserNickname from (select @rownum:=0)t,user,(select 
+			rm.userid,rm.maxredbagmoney AS money from (select userid,max(redbagmoney)maxredbagmoney 
+			from redbag GROUP BY userid)rm )mm where mm.userid=`user`.userid ORDER BY 
+			mm.money DESC)ss)ro; -->
+		select usernickname from (select usernickname,rownum,ss.money from
+		(select (@rownum:=@rownum+1)AS rownum,userid,max(money) money from
+		(select SUM(money)money,userid from activityget GROUP BY userid UNION
+		select max(redbagmoney)money,userid from redbag GROUP BY
+		userid)mm,(select @rownum:=0)t GROUP BY userid)ss,user where
+		user.userid=ss.userid ORDER BY ss.money DESC limit 30
+		)tt
+	</select>
+
+	<!-- 查询总金额排序的钱数 -->
+	<select id="selectmoney" resultType="java.lang.String">
+		<!-- SELECT ro.money from (select (@rownum:=@rownum+1) AS rownum,mm.money,`user`.UserNickname 
+			from (select @rownum:=0)t,user,(select rm.userid,(rm.sumredbagmoney+m.summoney) 
+			AS money from (select userid,SUM(redbagmoney)sumredbagmoney from redbag GROUP 
+			BY userid)rm,(select SUM(money)summoney from activityget GROUP BY userid)m 
+			)mm where mm.userid=`user`.userid ORDER BY mm.money DESC)ro; -->
+		select money from (select usernickname,rownum,ss.money from (select
+		(@rownum:=@rownum+1)AS rownum,userid,SUM(money) money from (select
+		SUM(money)money,userid from activityget GROUP BY userid UNION
+		select
+		SUM(redbagmoney)money,userid from redbag GROUP BY userid)mm,(select
+		@rownum:=0)t GROUP BY userid)ss,user where user.userid=ss.userid ORDER
+		BY ss.money DESC limit 30)mm
+
+	</select>
+
+
+	<!-- 查询总金额排序的钱数 -->
+	<select id="selectmaxmoney" resultType="java.lang.String">
+		<!-- SELECT ro.money from (select * from (select (@rownum:=@rownum+1) AS 
+			rownum,mm.money,`user`.UserNickname from (select @rownum:=0)t,user,(select 
+			rm.userid,rm.maxredbagmoney AS money from (select userid,max(redbagmoney)maxredbagmoney 
+			from redbag GROUP BY userid)rm )mm where mm.userid=`user`.userid ORDER BY 
+			mm.money DESC)ss)ro; -->
+
+		select money from (select usernickname,rownum,ss.money from (select
+		(@rownum:=@rownum+1)AS rownum,userid,max(money) money from (select
+		SUM(money)money,userid from activityget GROUP BY userid UNION
+		select
+		max(redbagmoney)money,userid from redbag GROUP BY userid)mm,(select
+		@rownum:=0)t GROUP BY userid)ss,user where user.userid=ss.userid ORDER
+		BY ss.money DESC limit 30
+		)tt
+	</select>
+
+
+	<!-- 查询人品金额排序 -->
+	<select id="selectByMaxMoney" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from (select (@rownum:=@rownum+1) AS
+		rownum,mm.money,`user`.UserNickname
+		from (select
+		@rownum:=0)t,user,(select
+		rm.userid,rm.maxredbagmoney AS money
+		from
+		(select userid,max(redbagmoney)maxredbagmoney from redbag GROUP BY
+		userid)rm )mm where mm.userid=`user`.userid ORDER
+		BY mm.money DESC)ss
+		where ss.rownum BETWEEN 1 and 20
+	</select>
+	<!-- 查询是否有user -->
+	<select id="selectByUserId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from Usertoredbag where UserId =
+		#{userid,jdbcType=VARCHAR} and
+		DATE_FORMAT( MoneyTime, "%Y-%m-%d" ) =
+		DATE_FORMAT( NOW(), "%Y-%m-%d"
+		)
+	</select>
+	<!-- 查询红包数量 -->
+	<select id="selectCount" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		SELECT * FROM usertoredbag where
+		userid=#{userid,jdbcType=VARCHAR} and
+		DATE_FORMAT( MoneyTime,
+		"%Y-%m-%d" ) = DATE_FORMAT( NOW(), "%Y-%m-%d"
+		);
+	</select>
+	<!-- 查看最后得到的红包时间 -->
+	<select id="selectTime" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select s.moneytime from (select * from usertoredbag where UserId =
+		#{userid,jdbcType=VARCHAR} ORDER BY MoneyTime DESC)s LIMIT 1
+	</select>
+	<!-- 用户得到红包 -->
+	<insert id="insertRedbag" parameterType="com.bklkj.pojo.Usertoredbag">
+		insert into usertoredbag (UserId,redbagnum)
+		values
+		(#{userid,jdbcType=VARCHAR},1<!-- +(select redbagnum from((select count(*)redbagnum 
+			from usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagtype 
+			=0 or redbagtype=1 OR redbagtype=2 OR redbagtype=3)s) -->
+		)
+	</insert>
+	<insert id="insertRedbag2" parameterType="com.bklkj.pojo.Usertoredbag">
+		insert into usertoredbag (UserId,redbagnum)
+		values
+		(#{userid,jdbcType=VARCHAR},2<!-- +(select redbagnum from((select count(*)redbagnum 
+			from usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagtype 
+			=0 or redbagtype=1 OR redbagtype=2 OR redbagtype=3)s) -->
+		)
+	</insert>
+	<!-- 用户得到红包 -->
+	<insert id="insertRedbag3" parameterType="com.bklkj.pojo.Usertoredbag">
+		insert into usertoredbag (UserId,redbagnum)
+		values
+		(#{userid,jdbcType=VARCHAR},3<!-- +(select redbagnum from((select count(*)redbagnum 
+			from usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagtype 
+			=0 or redbagtype=1 OR redbagtype=2 OR redbagtype=3)s) -->
+		)
+	</insert>
+
+
+	<!-- 查看最后得到的红包时间 -->
+	<select id="selectByLastR" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select u.businessid from (SELECT * from usertoredbag
+		where
+		UserId=#{userid,jdbcType=VARCHAR} GROUP BY MoneyTime DESC)u limit
+		1 ;
+	</select>
+
+	<update id="updateJudge" parameterType="map">
+		update user set
+		redbagjudge=1 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectUserIdJudge" resultType="java.lang.Integer">
+		select redbagjudge from user where
+		userid=#{userid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectrow" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select DISTINCT rownum from user where
+		userid=#{userid,jdbcType=VARCHAR};
+	</select>
+
+	<update id="updateMaxmoney" parameterType="map">
+		update user,(SELECT
+		MAX(money) max from usertoredbag where
+		userid=#{userid,jdbcType=VARCHAR})m SET user.MaxMoney = m.max where
+		userid=#{userid,jdbcType=VARCHAR}
+	</update>
+	<update id="updaterow" parameterType="map">
+		update user,(select
+		(@rownum:=@rownum+1) AS
+		rownum,`user`.UserNickname,`user`.maxmoney,`user`.UserId from
+		user,(select @rownum:=0)t GROUP BY `user`.userid) r SET user.rownum =
+		r.rownum where user.userid=r.UserId;
+	</update>
+
+	<update id="updateTotalmoney" parameterType="map">
+		update
+		usertoredbag,(select userid,SUM(redbagmoney)s from usertoredbag GROUP
+		BY userid)t SET usertoredbag.TotalMoney=t.s where
+		usertoredbag.UserId=t.userid;
+	</update>
+	<update id="updaterownum" parameterType="map">
+		update user,(select
+		(@rownum:=@rownum+1) AS rownum,userid,SUM(money) from
+		usertoredbag,(select @rownum:=0)a GROUP BY userid)t SET
+		user.totalrownum=t.rownum where user.UserId=t.userid;
+	</update>
+
+	<insert id="updatemoney" parameterType="com.bklkj.pojo.Usertoredbag">
+		update
+		usertoredbag,(select money from redbag where
+		UserId=#{userid,jdbcType=VARCHAR} GROUP BY RedBagTime desc limit 1)s
+		set money=s.money where userid=#{userid,jdbcType=VARCHAR}
+	</insert>
+
+	<insert id="updatemoneynumlast1" parameterType="com.bklkj.pojo.Usertoredbag">
+		update
+		usertoredbag SET redbagnum=1 where userid=#{userid,jdbcType=VARCHAR}
+	</insert>
+
+	<select id="selectredbagnum" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select redbagnum from (select moneytime,redbagnum from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} ORDER BY
+		moneytime desc limit 1)s where DATE_FORMAT(s.moneytime, "%Y-%m-%d"
+		)=DATE_FORMAT( NOW(), "%Y-%m-%d");
+	</select>
+
+	<insert id="updatemoneynumlast2" parameterType="com.bklkj.pojo.Usertoredbag">
+		update
+		usertoredbag SET redbagnum=1 where userid=#{userid,jdbcType=VARCHAR}
+	</insert>
+
+	<select id="selectByredbagType" resultMap="BaseResultMap">
+		select redbagtype from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} and
+		redbagnum=#{redbagnum,jdbcType=INTEGER}
+	</select>
+
+	<select id="selectcount" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(*) from usertoredbag where
+		userid=#{userid,jdbcType=VARCHAR} and (redbagtype =0 or redbagtype=1
+		OR redbagtype=2 or redbagtype=3)
+		<!-- select count(*) from usertoredbag where userid=#{userid,jdbcType=VARCHAR} 
+			and DATE_FORMAT( MoneyTime, "%Y-%m-%d" ) = DATE_FORMAT( NOW(), "%Y-%m-%d" 
+			) -->
+	</select>
+
+	<select id="selectcountnum" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(*) from usertoredbag where
+		userid=#{userid,jdbcType=VARCHAR} and (redbagtype =0 or redbagtype=1
+		OR redbagtype=2 or redbagtype=3 or redbagtype=4) and DATE_FORMAT(
+		MoneyTime, "%Y-%m-%d" ) = DATE_FORMAT( NOW(), "%Y-%m-%d")
+		<!-- select count(*) from usertoredbag where userid=#{userid,jdbcType=VARCHAR} 
+			and DATE_FORMAT( MoneyTime, "%Y-%m-%d" ) = DATE_FORMAT( NOW(), "%Y-%m-%d" 
+			) -->
+	</select>
+
+	<select id="selectcount2" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(*) from usertoredbag where
+		userid=#{userid,jdbcType=VARCHAR} and (redbagtype =0 or redbagtype=1
+		OR redbagtype=2 or redbagtype=3)
+	</select>
+
+	<select id="selectnumber" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select count(*) from usertoredbag where
+		userid=#{userid,jdbcType=VARCHAR} and DATE_FORMAT( MoneyTime,
+		"%Y-%m-%d" ) = DATE_FORMAT( NOW(), "%Y-%m-%d" )
+	</select>
+
+	<insert id="updatetype" parameterType="com.bklkj.pojo.Usertoredbag">
+		update usertoredbag SET
+		redbagtype = 4 where userid=#{userid,jdbcType=VARCHAR} and
+		redbagnum=#{redbagnum,jdbcType=INTEGER}
+	</insert>
+
+
+	<insert id="updatetype2" parameterType="com.bklkj.pojo.Usertoredbag">
+		update usertoredbag SET
+		redbagtype = 2 where userid=#{userid,jdbcType=VARCHAR} and
+		redbagnum=#{redbagnum,jdbcType=INTEGER}
+	</insert>
+
+	<insert id="updatetype3" parameterType="com.bklkj.pojo.Usertoredbag">
+		update usertoredbag SET
+		redbagtype = 3 where userid=#{userid,jdbcType=VARCHAR} and
+		redbagnum=#{redbagnum,jdbcType=INTEGER}
+	</insert>
+
+	<select id="selectByType" resultMap="BaseResultMap">
+		select
+		redbagtype,redbagnum,redbagid from usertoredbag where
+		userid=#{userid,jdbcType=VARCHAR} and DATE_FORMAT( MoneyTime,
+		"%Y-%m-%d" ) = DATE_FORMAT( NOW(), "%Y-%m-%d" ) and (redbagtype=0 or
+		redbagtype=1 or redbagtype=2 or redbagtype=3)
+	</select>
+
+	<select id="selectByType2" resultMap="BaseResultMap">
+		select
+		redbagtype,redbagnum,redbagid from usertoredbag where
+		userid=#{userid,jdbcType=VARCHAR} and (redbagtype=0 or redbagtype=1 or
+		redbagtype=2 or redbagtype=3)
+	</select>
+
+	<select id="selectcountdownlist" resultType="java.lang.String">
+		select
+		IFNULL(DATE_FORMAT(countdownbegintime,"%Y-%m-%d %k:%i:%s"),'2015-01-01
+		00:00:00') from
+		usertoredbag where userid = #{userid,jdbcType=VARCHAR}
+		and (redbagtype=0 or redbagtype=1 or
+		redbagtype=2 or redbagtype=3) and
+		redbagnum = 1
+	</select>
+
+
+	<select id="selectredbagtime" resultType="java.util.Date">
+		select
+		IFNULL(DATE_FORMAT(countdownbegintime,"%Y-%m-%d %k:%i:%s"),'2015-01-01
+		00:00:00') from
+		usertoredbag where userid = #{userid,jdbcType=VARCHAR}
+		and (redbagtype=0 or redbagtype=1 or
+		redbagtype=2 or redbagtype=3) and
+		redbagnum = 1
+	</select>
+
+	<select id="selectcountdownlist2" resultType="java.lang.String">
+		select IFNULL(DATE_FORMAT(countdownbegintime,"%Y-%m-%d
+		%k:%i:%s"),'2015-01-01 00:00:00') from
+		usertoredbag where userid =
+		#{userid,jdbcType=VARCHAR} and (redbagtype=0 or redbagtype=1 or
+		redbagtype=2 or redbagtype=3) and redbagnum = 2
+	</select>
+
+	<select id="selectcountdownlist3" resultType="java.lang.String">
+		select
+		IFNULL(DATE_FORMAT(countdownbegintime,"%Y-%m-%d %k:%i:%s"),'2015-01-01
+		00:00:00') from
+		usertoredbag where userid = #{userid,jdbcType=VARCHAR}
+		and (redbagtype=0 or redbagtype=1 or
+		redbagtype=2 or redbagtype=3) and
+		redbagnum = 3
+	</select>
+
+	<select id="selectredbagnum2" resultType="java.lang.Integer"
+		parameterType="java.lang.String">
+		select redbagnum from (select moneytime,redbagnum from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} ORDER BY
+		moneytime desc limit 1)s
+	</select>
+
+	<select id="selectredbagnum1" resultMap="BaseResultMap">
+		select * from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagnum=1
+		and (redbagtype=0 or redbagtype=1 or redbagtype=2 or redbagtype=3)
+	</select>
+
+	<select id="selectredbagnum3" resultMap="BaseResultMap">
+		select * from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagnum=2
+		and (redbagtype=0 or redbagtype=1 or redbagtype=2 or redbagtype=3)
+	</select>
+
+	<select id="selectredbagnum4" resultMap="BaseResultMap">
+		select * from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagnum=3
+		and (redbagtype=0 or redbagtype=1 or redbagtype=2 or redbagtype=3)
+	</select>
+
+
+	<select id="selectredbagid1" resultMap="BaseResultMap">
+		select * from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagid=1
+	</select>
+	<select id="selectredbagid2" resultMap="BaseResultMap">
+		select * from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagid=2
+	</select>
+	<select id="selectredbagid3" resultMap="BaseResultMap">
+		select * from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagid=3
+	</select>
+
+	<update id="updateredbagid1" parameterType="map">
+		update usertoredbag
+		set redbagid=1 where userid=#{userid,jdbcType=VARCHAR} ORDER BY
+		MoneyTime DESC LIMIT 1
+	</update>
+	<update id="updateredbagid2" parameterType="map">
+		update usertoredbag
+		set redbagid=2 where userid=#{userid,jdbcType=VARCHAR} ORDER BY
+		MoneyTime DESC LIMIT 1
+	</update>
+	<update id="updateredbagid3" parameterType="map">
+		update usertoredbag
+		set redbagid=3 where userid=#{userid,jdbcType=VARCHAR} ORDER BY
+		MoneyTime DESC LIMIT 1
+	</update>
+
+	<select id="selectredbagid" resultType="java.lang.Integer">
+		select redbagid from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} GROUP BY
+		MoneyTime DESC LIMIT 1
+	</select>
+
+
+	<update id="updatecountdownbegintime" parameterType="map">
+		update
+		usertoredbag set countdownbegintime=now() where
+		userid=#{userid,jdbcType=VARCHAR} and redbagnum =
+		#{redbagnum,jdbcType=INTEGER} and (redbagtype=0 or redbagtype=1 or
+		redbagtype=2 or redbagtype=3)
+	</update>
+
+
+	<select id="selectuseri" resultType="java.lang.Integer">
+		select userintegral from
+		user where userid = #{userid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectcountdown" resultType="java.lang.String">
+		select DATE_FORMAT(
+		countdownbegintime, "%Y-%m-%d %k:%i:%s") from
+		usertoredbag where userid
+		= #{userid,jdbcType=VARCHAR} and redbagnum =
+		#{redbagnum,jdbcType=INTEGER} and (redbagtype=0 or redbagtype=1 or
+		redbagtype=2 or redbagtype=3)
+	</select>
+
+	<select id="selecttimedown" resultType="java.lang.String">
+		select DATE_FORMAT( time,
+		"%Y-%m-%d %k:%i:%s") from activitytemporary where
+		rownum=1
+	</select>
+
+	<select id="selectnow" resultType="java.lang.String">
+		select DATE_FORMAT( NOW(),
+		"%Y-%m-%d %k:%i:%s")
+	</select>
+	<select id="selectnownow" resultType="java.lang.String">
+		select DATE_FORMAT( NOW(),
+		"%Y%m%d%k%i%s")
+	</select>
+	<select id="selectactivitytime" resultType="java.lang.String">
+		select
+		DATE_FORMAT(q.MoneyTime, "%Y-%m-%d %k:%i:%s") from (select * from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} and
+		DATE_FORMAT(MoneyTime, "%Y-%m-%d" ) = DATE_FORMAT(NOW(), "%Y-%m-%d" )
+		and (select COUNT(*) from usertoredbag where DATE_FORMAT( MoneyTime,
+		"%Y-%m-%d" ) = DATE_FORMAT( NOW(), "%Y-%m-%d" ) and
+		userid=#{userid,jdbcType=VARCHAR})=3
+		ORDER BY MoneyTime DESC LIMIT 1)q
+	</select>
+	<select id="selectnowlast" resultType="java.lang.String">
+		select
+		DATE_FORMAT(DATE_SUB(curdate(),INTERVAL -1 DAY), "%Y-%m-%d %k:%i:%s")
+	</select>
+
+
+	<select id="selectcountdowntime" resultType="java.lang.String">
+		select
+		DATE_FORMAT(countdownbegintime,"%Y-%m-%d %k:%i:%s") from usertoredbag
+		where userid=#{userid,jdbcType=VARCHAR} and redbagtype=1
+	</select>
+
+
+
+
+	<update id="updateintegral" parameterType="map">
+		update user set
+		userintegral=userintegral-5 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+
+	<update id="updateredbagtype" parameterType="map">
+		update usertoredbag
+		set redbagtype=2 where userid=#{userid,jdbcType=VARCHAR} and redbagnum
+		= #{redbagnum,jdbcType=INTEGER} and (redbagtype=0 or redbagtype=1 or
+		redbagtype=2 or redbagtype=3)
+	</update>
+
+	<update id="updateredbagtypeone" parameterType="map">
+		update
+		usertoredbag
+		set redbagtype=2 where userid=#{userid,jdbcType=VARCHAR}
+		and redbagtype=1
+	</update>
+
+	<update id="updateredbagtype1" parameterType="map">
+		update usertoredbag
+		set redbagtype=1 where userid=#{userid,jdbcType=VARCHAR} and redbagnum
+		= #{redbagnum,jdbcType=INTEGER} and (redbagtype=0 or redbagtype=1 or
+		redbagtype=2 or redbagtype=3)
+	</update>
+
+
+	<select id="selecttype" resultType="java.lang.Integer">
+		select redbagtype from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR}
+		and
+		redbagnum=#{redbagnum,jdbcType=INTEGER} and (redbagtype=0 or
+		redbagtype=1 or redbagtype=2 or redbagtype=3)
+	</select>
+
+
+
+	<select id="selectredbagnumtime" resultType="java.lang.Integer">
+		select COUNT(*) from
+		usertoredbag where userid=#{userid,jdbcType=VARCHAR} and redbagtype=1
+	</select>
+
+
+	<update id="updateintegral10" parameterType="map">
+		update user set
+		userintegral=userintegral-10 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+
+
+	<update id="updateintegral15" parameterType="map">
+		update user set
+		userintegral=userintegral-15 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+
+
+	<update id="updateintegral20" parameterType="map">
+		update user set
+		userintegral=userintegral-20 where userid=#{userid,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

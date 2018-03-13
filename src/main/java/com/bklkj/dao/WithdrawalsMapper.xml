@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.WithdrawalsMapper">
+	<resultMap id="BaseResultMap" type="com.bklkj.pojo.Withdrawals">
+		<id column="Id" property="id" jdbcType="INTEGER" />
+		<result column="UserId" property="userid" jdbcType="VARCHAR" />
+		<result column="WithdrawalsChannelId" property="withdrawalschannelid"
+			jdbcType="INTEGER" />
+		<result column="WithdrawalsMoney" property="withdrawalsmoney"
+			jdbcType="DOUBLE" />
+		<result column="WithdrawalsTime" property="withdrawalstime"
+			jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		Id, UserId, WithdrawalsChannelId, WithdrawalsMoney, WithdrawalsTime
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.WithdrawalsExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from withdrawals
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from withdrawals
+		where Id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from withdrawals
+		where Id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.bklkj.pojo.WithdrawalsExample">
+		delete from withdrawals
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.bklkj.pojo.Withdrawals">
+		insert into withdrawals (Id, UserId, WithdrawalsChannelId,
+		WithdrawalsMoney, WithdrawalsTime)
+		values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR},
+		#{withdrawalschannelid,jdbcType=INTEGER},
+		#{withdrawalsmoney,jdbcType=DOUBLE},
+		#{withdrawalstime,jdbcType=TIMESTAMP})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bklkj.pojo.Withdrawals">
+		insert into withdrawals
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				Id,
+			</if>
+			<if test="userid != null">
+				UserId,
+			</if>
+			<if test="withdrawalschannelid != null">
+				WithdrawalsChannelId,
+			</if>
+			<if test="withdrawalsmoney != null">
+				WithdrawalsMoney,
+			</if>
+			<if test="withdrawalstime != null">
+				WithdrawalsTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="withdrawalschannelid != null">
+				#{withdrawalschannelid,jdbcType=INTEGER},
+			</if>
+			<if test="withdrawalsmoney != null">
+				#{withdrawalsmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="withdrawalstime != null">
+				#{withdrawalstime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.bklkj.pojo.WithdrawalsExample"
+		resultType="java.lang.Integer">
+		select count(*) from withdrawals
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update withdrawals
+		<set>
+			<if test="record.id != null">
+				Id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.userid != null">
+				UserId = #{record.userid,jdbcType=INTEGER},
+			</if>
+			<if test="record.withdrawalschannelid != null">
+				WithdrawalsChannelId =
+				#{record.withdrawalschannelid,jdbcType=INTEGER},
+			</if>
+			<if test="record.withdrawalsmoney != null">
+				WithdrawalsMoney = #{record.withdrawalsmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="record.withdrawalstime != null">
+				WithdrawalsTime = #{record.withdrawalstime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update withdrawals
+		set Id = #{record.id,jdbcType=INTEGER},
+		UserId = #{record.userid,jdbcType=INTEGER},
+		WithdrawalsChannelId = #{record.withdrawalschannelid,jdbcType=INTEGER},
+		WithdrawalsMoney = #{record.withdrawalsmoney,jdbcType=DOUBLE},
+		WithdrawalsTime = #{record.withdrawalstime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Withdrawals">
+		update withdrawals
+		<set>
+			<if test="userid != null">
+				UserId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="withdrawalschannelid != null">
+				WithdrawalsChannelId = #{withdrawalschannelid,jdbcType=INTEGER},
+			</if>
+			<if test="withdrawalsmoney != null">
+				WithdrawalsMoney = #{withdrawalsmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="withdrawalstime != null">
+				WithdrawalsTime = #{withdrawalstime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.Withdrawals">
+		update withdrawals
+		set UserId = #{userid,jdbcType=VARCHAR},
+		WithdrawalsChannelId = #{withdrawalschannelid,jdbcType=INTEGER},
+		WithdrawalsMoney = #{withdrawalsmoney,jdbcType=DOUBLE},
+		WithdrawalsTime = #{withdrawalstime,jdbcType=TIMESTAMP}
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="selectByUserId" resultMap="BaseResultMap">
+		<!-- select DISTINCT withdrawalsMoney,withdrawalsTime,WithdrawalsChannelName from
+		withdrawals,`user`,withdrawalschannel
+		where withdrawals.UserId=#{userid,jdbcType=VARCHAR}
+		and
+		withdrawals.WithdrawalsChannelId=withdrawalschannel.WithdrawalsChannelId
+		order by date_format(WithdrawalsTime,'%m-%d-%S') desc; -->
+	select * from withdrawals where userid=#{userid,jdbcType=VARCHAR}
+	</select>
+
+
+	<select id="selectWithdrawalsMoney" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select sum(withdrawalsmoney) from Withdrawals where
+		userid=#{userid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectByTime" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from withdrawals where userid=#{userid,jdbcType=VARCHAR} GROUP BY
+		WithdrawalsTime desc LIMIT 1;
+	</select>
+
+	<select id="selectwith" resultType="java.lang.Double"
+		parameterType="java.lang.Integer">
+		select sum(withdrawalsmoney) from withdrawals where
+		userid=#{userid,jdbcType=VARCHAR}
+	</select>
+	<select id="selectjilu" resultMap="BaseResultMap" parameterType="java.lang.String">
+	select * from withdrawals where userid=#{userid,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectwithmoney" resultType="java.lang.Double">
+		select ifnull(sum(withdrawalsmoney),0.00) from withdrawals where
+		userid=#{userid,jdbcType=VARCHAR}
+	</select>
+	
+	<select id="selectwithm" resultType="java.lang.Double"
+		parameterType="com.bklkj.pojo.Withdrawals">
+		select ii.money+oo.money-pp.money from (select IFNULL(SUM(money),0.00) AS money from activityget where userid=#{userid,jdbcType=VARCHAR})ii,(select IFNULL(SUM(redbagmoney) ,0.00) AS money from redbag where userid=#{userid,jdbcType=VARCHAR})oo,(select IFNULL(SUM(withdrawalsmoney),0.00)AS money from withdrawals where userid=#{userid,jdbcType=VARCHAR})pp;
+		</select>
+</mapper>

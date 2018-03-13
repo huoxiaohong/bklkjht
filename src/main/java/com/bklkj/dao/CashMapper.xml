@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.CashMapper">
+	<resultMap id="BaseResultMap" type="com.bklkj.pojo.Cash">
+		<id column="Id" property="id" jdbcType="INTEGER" />
+		<result column="ActivityCashId" property="activitycashid"
+			jdbcType="INTEGER" />
+		<result column="ActivityCashMoney" property="activitycashmoney"
+			jdbcType="DOUBLE" />
+		<result column="BusinessId" property="businessid" jdbcType="INTEGER" />
+		<result column="UserId" property="userid" jdbcType="VARCHAR" />
+		<result column="CashTime" property="cashtime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		Id, ActivityCashId, ActivityCashMoney, BusinessId, UserId,
+		CashTime
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.CashExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from cash
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from cash
+		where Id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from cash
+		where Id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.bklkj.pojo.CashExample">
+		delete from cash
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.bklkj.pojo.Cash">
+		insert into cash (Id,
+		ActivityCashId, ActivityCashMoney,
+		BusinessId, UserId, CashTime
+		)
+		values
+		(#{id,jdbcType=INTEGER}, #{activitycashid,jdbcType=INTEGER},
+		#{activitycashmoney,jdbcType=DOUBLE},
+		#{businessid,jdbcType=INTEGER},
+		#{userid,jdbcType=VARCHAR}, #{cashtime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.bklkj.pojo.Cash">
+		insert into cash
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				Id,
+			</if>
+			<if test="activitycashid != null">
+				ActivityCashId,
+			</if>
+			<if test="activitycashmoney != null">
+				ActivityCashMoney,
+			</if>
+			<if test="businessid != null">
+				BusinessId,
+			</if>
+			<if test="userid != null">
+				UserId,
+			</if>
+			<if test="cashtime != null">
+				CashTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="activitycashid != null">
+				#{activitycashid,jdbcType=INTEGER},
+			</if>
+			<if test="activitycashmoney != null">
+				#{activitycashmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="businessid != null">
+				#{businessid,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="cashtime != null">
+				#{cashtime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.bklkj.pojo.CashExample"
+		resultType="java.lang.Integer">
+		select count(*) from cash
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update cash
+		<set>
+			<if test="record.id != null">
+				Id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.activitycashid != null">
+				ActivityCashId =
+				#{record.activitycashid,jdbcType=INTEGER},
+			</if>
+			<if test="record.activitycashmoney != null">
+				ActivityCashMoney =
+				#{record.activitycashmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="record.businessid != null">
+				BusinessId = #{record.businessid,jdbcType=INTEGER},
+			</if>
+			<if test="record.userid != null">
+				UserId = #{record.userid,jdbcType=INTEGER},
+			</if>
+			<if test="record.cashtime != null">
+				CashTime = #{record.cashtime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update cash
+		set Id = #{record.id,jdbcType=INTEGER},
+		ActivityCashId =
+		#{record.activitycashid,jdbcType=INTEGER},
+		ActivityCashMoney =
+		#{record.activitycashmoney,jdbcType=DOUBLE},
+		BusinessId =
+		#{record.businessid,jdbcType=INTEGER},
+		UserId =
+		#{record.userid,jdbcType=INTEGER},
+		CashTime =
+		#{record.cashtime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Cash">
+		update cash
+		<set>
+			<if test="activitycashid != null">
+				ActivityCashId = #{activitycashid,jdbcType=INTEGER},
+			</if>
+			<if test="activitycashmoney != null">
+				ActivityCashMoney = #{activitycashmoney,jdbcType=DOUBLE},
+			</if>
+			<if test="businessid != null">
+				BusinessId = #{businessid,jdbcType=INTEGER},
+			</if>
+			<if test="userid != null">
+				UserId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="cashtime != null">
+				CashTime = #{cashtime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where Id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.Cash">
+		update cash
+		set
+		ActivityCashId = #{activitycashid,jdbcType=INTEGER},
+		ActivityCashMoney
+		= #{activitycashmoney,jdbcType=DOUBLE},
+		BusinessId =
+		#{businessid,jdbcType=INTEGER},
+		UserId = #{userid,jdbcType=VARCHAR},
+		CashTime = #{cashtime,jdbcType=TIMESTAMP}
+		where Id =
+		#{id,jdbcType=INTEGER}
+	</update>
+	<select id="selectByActivity" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select distinct
+		t.BusinessName,t.Logo,t.ActivityCashMoney,t.cashTime
+		from
+		`user`,(select
+		ActivityCashMoney,cashTime,userId,b.BusinessName,b.Logo
+		from cash,
+		(select * from business)b
+		where cash.BusinessId=b.BusinessId
+		)t
+		where t.userId=#{userid,jdbcType=VARCHAR} order by
+		date_format(CashTime,'%m-%d-%S')
+	</select>
+	<select id="selectByRedbag" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		usertoredbag.MoneyTime,usertoredbag.Money,b.businessName,b.Logo from
+		usertoredbag,(select businessName,Logo from usertoredbag,business
+		where business.BusinessId=usertoredbag.businessId)b where
+		usertoredbag.UserId = #{userid,jdbcType=VARCHAR} order by
+		date_format(MoneyTime,'%m-%d-%S');
+	</select>
+	<select id="selectByAll" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select * from (select distinct
+		t.BusinessName,t.Logo,t.ActivityCashMoney,t.cashTime
+		from
+		`user`,(select
+		ActivityCashMoney,cashTime,userId,b.BusinessName,b.Logo
+		from cash,
+		(select * from business)b
+		where cash.BusinessId=b.BusinessId
+		)t
+		where t.userId = #{userid,jdbcType=VARCHAR}
+		)t1 UNION ALL select *
+		from (select
+		b.businessName,b.Logo,usertoredbag.Money,usertoredbag.MoneyTime
+		from
+		usertoredbag,(select businessName,Logo from usertoredbag,business
+		where business.BusinessId=usertoredbag.businessId)b where
+		usertoredbag.UserId = #{userid,jdbcType=VARCHAR})t2
+		order by
+		date_format(CashTime,'%m-%S') DESC;
+	</select>
+	<select id="selectByMoney" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select distinct * from (select distinct * from (select
+		distinct
+		t.BusinessName,t.Logo,t.ActivityCashMoney,t.cashTime
+		from
+		`user`,(select
+		ActivityCashMoney,cashTime,userId,b.BusinessName,b.Logo
+		from cash,
+		(select * from business)b
+		where cash.BusinessId=b.BusinessId
+		)t
+		where t.userId = #{userid,jdbcType=VARCHAR}
+		)t1 UNION ALL select *
+		from (select
+		b.businessName,b.Logo,usertoredbag.Money,usertoredbag.MoneyTime
+		from
+		usertoredbag,(select businessName,Logo from usertoredbag,business
+		where business.BusinessId=usertoredbag.businessId)b where
+		usertoredbag.UserId = #{userid,jdbcType=VARCHAR})t2 )ttb
+		where
+		ttb.ActivityCashMoney between #{minactivitycashmoney,jdbcType=DOUBLE}
+		and #{maxactivitycashmoney,jdbcType=DOUBLE} order by
+		date_format(CashTime,'%m-%S') DESC ;
+	</select>
+
+	<select id="selectByActivityMoney" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select * from (select distinct
+		t.userId,t.BusinessName,t.Logo,t.ActivityCashMoney,t.cashTime
+		from
+		`user`,(select
+		ActivityCashMoney,cashTime,userId,b.BusinessName,b.Logo
+		from cash,
+		(select * from business)b
+		where cash.BusinessId=b.BusinessId
+		)t
+		where t.userId=`user`.UserId = #{userid,jdbcType=VARCHAR})tab where
+		tab.ActivityCashMoney BETWEEN #{minactivitycashmoney,jdbcType=DOUBLE}
+		and #{maxactivitycashmoney,jdbcType=DOUBLE} order by
+		date_format(CashTime,'%m-%d-%S');
+	</select>
+
+	<select id="selectByRedbagMoney" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select distinct * from (select distinct
+		b.businessName,b.Logo,usertoredbag.Money,usertoredbag.MoneyTime
+		from
+		usertoredbag,(select businessName,Logo from usertoredbag,business
+		where business.BusinessId=usertoredbag.businessId)b where
+		usertoredbag.UserId = #{userid,jdbcType=VARCHAR})tt
+		where tt.Money
+		BETWEEN #{minredbagmoney,jdbcType=DOUBLE} and
+		#{maxredbagmoney,jdbcType=DOUBLE} order by
+		date_format(MoneyTime,'%m-%d-%S');
+	</select>
+
+
+
+</mapper>

@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bklkj.dao.EquipmentMapper">
+	<resultMap id="BaseResultMap" type="com.bklkj.pojo.Equipment">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="EquipmentId" property="equipmentid" jdbcType="INTEGER" />
+		<result column="EquipmentName" property="equipmentname"
+			jdbcType="VARCHAR" />
+		<result column="UserId" property="userid" jdbcType="VARCHAR" />
+		<result column="SignTime" property="signtime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value} and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, EquipmentId, EquipmentName, UserId, SignTime
+	</sql>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.EquipmentExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from equipment
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from equipment
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from equipment
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.bklkj.pojo.EquipmentExample">
+		delete from equipment
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.bklkj.pojo.Equipment">
+		insert into equipment (EquipmentName,
+		UserId)
+		values (#{equipmentname,jdbcType=VARCHAR},
+		#{userid,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.bklkj.pojo.Equipment">
+		insert into equipment
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="equipmentid != null">
+				EquipmentId,
+			</if>
+			<if test="equipmentname != null">
+				EquipmentName,
+			</if>
+			<if test="userid != null">
+				UserId,
+			</if>
+			<if test="signtime != null">
+				SignTime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="equipmentid != null">
+				#{equipmentid,jdbcType=INTEGER},
+			</if>
+			<if test="equipmentname != null">
+				#{equipmentname,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				#{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="signtime != null">
+				#{signtime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.bklkj.pojo.EquipmentExample"
+		resultType="java.lang.Integer">
+		select count(*) from equipment
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update equipment
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=INTEGER},
+			</if>
+			<if test="record.equipmentid != null">
+				EquipmentId = #{record.equipmentid,jdbcType=INTEGER},
+			</if>
+			<if test="record.equipmentname != null">
+				EquipmentName = #{record.equipmentname,jdbcType=VARCHAR},
+			</if>
+			<if test="record.userid != null">
+				UserId = #{record.userid,jdbcType=INTEGER},
+			</if>
+			<if test="record.signtime != null">
+				SignTime = #{record.signtime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update equipment
+		set id = #{record.id,jdbcType=INTEGER},
+		EquipmentId = #{record.equipmentid,jdbcType=INTEGER},
+		EquipmentName = #{record.equipmentname,jdbcType=VARCHAR},
+		UserId = #{record.userid,jdbcType=INTEGER},
+		SignTime = #{record.signtime,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.bklkj.pojo.Equipment">
+		update equipment
+		<set>
+			<if test="equipmentid != null">
+				EquipmentId = #{equipmentid,jdbcType=INTEGER},
+			</if>
+			<if test="equipmentname != null">
+				EquipmentName = #{equipmentname,jdbcType=VARCHAR},
+			</if>
+			<if test="userid != null">
+				UserId = #{userid,jdbcType=VARCHAR},
+			</if>
+			<if test="signtime != null">
+				SignTime = #{signtime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.bklkj.pojo.Equipment">
+		update equipment
+		set EquipmentId = #{equipmentid,jdbcType=INTEGER},
+		EquipmentName = #{equipmentname,jdbcType=VARCHAR},
+		UserId = #{userid,jdbcType=VARCHAR},
+		SignTime = #{signtime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- ************************************************************************ -->
+	<select id="selectByUserId" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.Equipment">
+		select * from equipment where UserId = #{userid,jdbcType=VARCHAR} and
+		EquipmentName = #{equipmentname,jdbcType=VARCHAR}
+	</select>
+
+	<update id="updateByUserId" parameterType="map">
+		update equipment set signtime = now() where UserId =
+		#{userid,jdbcType=VARCHAR} and EquipmentName =
+		#{equipmentname,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectByUserIdPhone" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.Equipment">
+		select * from equipment where userphone = #{userphone,jdbcType=VARCHAR} and
+		EquipmentName = #{equipmentname,jdbcType=VARCHAR}
+	</select>
+
+
+	<update id="updateByUserIdPhone" parameterType="map">
+		update equipment set signtime = now() where userphone =
+		#{userphone,jdbcType=VARCHAR} and EquipmentName =
+		#{equipmentname,jdbcType=VARCHAR}
+	</update>
+
+	<insert id="insertPhone" parameterType="com.bklkj.pojo.Equipment">
+		insert into equipment (EquipmentName,userphone) values
+		(#{equipmentname,jdbcType=VARCHAR}, #{userphone,jdbcType=VARCHAR})
+	</insert>
+
+	<update id="updateuserid" parameterType="map">
+		update equipment set userid = (select userid from user where
+		userphone=#{userphone,jdbcType=VARCHAR}) where userphone =
+		#{userphone,jdbcType=VARCHAR} and EquipmentName =
+		#{equipmentname,jdbcType=VARCHAR}
+	</update>
+
+	<select id="selectequipmentname" resultMap="BaseResultMap"
+		parameterType="com.bklkj.pojo.Equipment">
+		select equipmentname,userphone from equipment where userphone =
+		#{userphone,jdbcType=VARCHAR} and
+		equipmentname=#{equipmentname,jdbcType=VARCHAR}
+	</select>
+
+	<select id="selectequipmentnameandtime" resultType="com.bklkj.pojo.Equipment"
+		parameterType="com.bklkj.pojo.Equipment">
+		select equipmentname,signtime from equipment where userid =
+		#{userid,jdbcType=VARCHAR} order by signtime desc
+	</select>
+</mapper>
